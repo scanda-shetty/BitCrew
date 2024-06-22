@@ -1,0 +1,91 @@
+/* Music.css */
+
+/* General styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1e1e1e; /* Dark background color similar to Spotify */
+  color: #fff; /* Text color */
+}
+
+.App {
+  padding: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #1db954; /* Spotify's green */
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.wrapper {
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+section {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
+.item {
+  margin-bottom: 10px;
+}
+
+.item img {
+  border-radius: 5px;
+}
+
+.arrow__btn {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-color: #000;
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.arrow__btn:before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.os-scrollbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent scrollbar */
+}
+
+.os-scrollbar-track {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent scrollbar track */
+}
+
+.os-scrollbar-handle {
+  width: 100%;
+  background-color: #1db954; /* Spotify's green */
+  border-radius: 5px;
+}
+
+.os-scrollbar-handle:hover {
+  background-color: #1ed760; /* Lighter shade of green on hover */
+}
