@@ -1,51 +1,18 @@
-# NFT Marketplace
-
-
-This repository is clone of nft_marketplace repository of dappuniversity. 
-- Link of original repository is https://github.com/dappuniversity/nft_marketplace
-## Technology Stack & Tools
-
-- Solidity (Writing Smart Contract)
-- Javascript (React & Testing)
-- [Ethers](https://docs.ethers.io/v5/) (Blockchain Interaction)
-- [Hardhat](https://hardhat.org/) (Development Framework)
-- [Ipfs](https://ipfs.io/) (Metadata storage)
-- [React routers](https://v5.reactrouter.com/) (Navigational components)
-
-## Requirements For Initial Setup
-- Install [NodeJS](https://nodejs.org/en/), should work with any node version below 16.5.0
-- Install [Hardhat](https://hardhat.org/)
-
-## Setting Up
-### 1. Clone/Download the Repository
-
-### 2. Install Dependencies:
-```
-$ cd nft_marketplace
-$ npm install
-```
-### 3. Boot up local development blockchain
-```
-$ cd nft_marketplace
-$ npx hardhat node
-```
-
-### 4. Connect development blockchain accounts to Metamask
-- Copy private key of the addresses and import to Metamask
-- Connect your metamask to hardhat blockchain, network 127.0.0.1:8545.
-- If you have not added hardhat to the list of networks on your metamask, open up a browser, click the fox icon, then click the top center dropdown button that lists all the available networks then click add networks. A form should pop up. For the "Network Name" field enter "Hardhat". For the "New RPC URL" field enter "http://127.0.0.1:8545". For the chain ID enter "31337". Then click save.  
-
-
-### 5. Migrate Smart Contracts
-`npx hardhat run src/backend/scripts/deploy.js --network localhost`
-
-### 6. Run Tests
-`$ npx hardhat test`
-
-### 7. Launch Frontend
-`$ npm run start`
-
-License
-----
-MIT
-
+ Swar is a decentralized music platform, using
+ blockchain and machine learning to change music industry
+ fundamentals, where artists and users will reap the most benefits.
+ Unlike other platforms, Swar offers transparent royalty payment
+ system which is based on streaming data and has dynamic ad
+justments, thus, contributors are assured of fair remunerations.
+ Through its DApp solution, Swar provides the artists with an
+ opportunity to upload songs, allocate the royalties using smart
+ contracts, and store the content in the IPFS securely. ML-Model
+ of the platform forecasts streaming numbers and distributes
+ royalties that helps artists make decisions on their work with
+ confidence . On the top of that Swar comes up with Timebound
+ NFTs, that empowers artists to provide special content and
+ experiences to the fans which can be sold on the dedicated
+ marketplace. Intuitive personalized song recommendation system
+ also offers user tailored suggestions including the songs they like
+ the most. Swar aspires to have a music ecosystem which is seen
+ as transparent, fair and engaging to both artists and listeners.
