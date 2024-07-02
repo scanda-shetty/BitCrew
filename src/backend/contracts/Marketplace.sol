@@ -8,8 +8,8 @@ contract Marketplace is ReentrancyGuard {
     // Variables
     address payable public immutable feeAccount; // the account that receives fees
     uint public immutable feePercent; // the fee percentage on sales 
-    uint public itemCount;
-    
+    uint public itemCount; // Counter for items in the marketplace
+
     // Mapping to track the listen count for each NFT
     mapping(uint => uint) public listenCount;
 
@@ -50,11 +50,8 @@ contract Marketplace is ReentrancyGuard {
     // Make item to offer on the marketplace
     function makeItem(IERC721 _nft, uint _tokenId, uint _price) external nonReentrant {
         require(_price > 0, "Price must be greater than zero");
-        // increment itemCount
         itemCount ++;
-        // transfer nft
         _nft.transferFrom(msg.sender, address(this), _tokenId);
-        // add new item to items mapping
         items[itemCount] = Item (
             itemCount,
             _nft,
@@ -63,7 +60,6 @@ contract Marketplace is ReentrancyGuard {
             payable(msg.sender),
             false
         );
-        // emit Offered event
         emit Offered(
             itemCount,
             address(_nft),
@@ -94,7 +90,7 @@ contract Marketplace is ReentrancyGuard {
     }
 
     function getTotalPrice(uint _itemId) view public returns(uint){
-        return((items[_itemId].price*(100 + feePercent))/100);
+        return((items[_itemId].price * (100 + feePercent)) / 100);
     }
 
     // Function to increment the listen count for an NFT

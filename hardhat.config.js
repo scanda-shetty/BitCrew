@@ -8,4 +8,13 @@ module.exports = {
     cache: "./src/backend/cache",
     tests: "./src/backend/test"
   },
+  networks: {
+    hardhat: {
+      chainId: 31337,
+    },
+    swar: {
+      url: "http://127.0.0.1:8545",
+      chainId: 31337,
+    }
+  }
 };
