@@ -7,6 +7,7 @@ import Navigation from './Navbar';
 import Home from './Home.js'
 import Main from './Music.js'
 import Create from './Create.js'
+import CreateMusic from './CreateMusic.js'
 import MyRoyalty from './MyRoyalty.js'
 import MyListedItems from './MyListedItems.js'
 import MyPurchases from './MyPurchases.js'
@@ -68,12 +69,15 @@ function App() {
           ) : (
             <Routes>
               <Route path="/" element={
-                <Home marketplace={marketplace} nft={nft} />
+                <Home />
               } />
               <Route path="/NFT" element={
-                <Main />
+                <Main marketplace={marketplace} nft={nft} />
               } />
               <Route path="/create" element={
+                <CreateMusic marketplace={marketplace} nft={nft} />
+              } />
+              <Route path="/createNFT" element={
                 <Create marketplace={marketplace} nft={nft} />
               } />
               <Route path="/MyRoyalty" element={

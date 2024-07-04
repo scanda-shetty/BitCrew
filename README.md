@@ -29,7 +29,9 @@ $ npm install
 $ cd nft_marketplace
 $ npx hardhat node
 ```
-
+npx hardhat node
+npx hardhat run src/backend/scripts/deploy.js --network localhost
+npm run star
 
 
 

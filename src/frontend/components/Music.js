@@ -1,67 +1,74 @@
-import React, { useState, useEffect } from "react";
-import './Music.css';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { ethers } from "ethers";
+import { Row, Col, Card, Button } from 'react-bootstrap';
+import './Music.css';  
 
-function Main() {
-  const [songs, setSongs] = useState([]);
+const Main = ({ marketplace, nft }) => {
+  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState([]);
+
+  const loadMarketplaceItems = async () => {
+    const itemCount = await marketplace.itemCount();
+    let items = [];
+    for (let i = 1; i <= itemCount; i++) {
+      const item = await marketplace.items(i);
+      if (!item.sold) {
+        const uri = await nft.tokenURI(item.tokenId);
+        const response = await fetch(uri);
+        const metadata = await response.json();
+        const totalPrice = await marketplace.getTotalPrice(item.itemId);
+        items.push({
+          totalPrice,
+          itemId: item.itemId,
+          seller: item.seller,
+          name: metadata.name,
+          description: metadata.description,
+          image: metadata.image,
+          audio: metadata.audio
+        });
+      }
+    }
+    setLoading(false);
+    setItems(items);
+  };
+
+  const buyMarketItem = async (item) => {
+    await (await marketplace.purchaseItem(item.itemId, { value: item.totalPrice })).wait();
+    loadMarketplaceItems();
+  };
 
   useEffect(() => {
-    fetchSongsFromPinata();
+    loadMarketplaceItems();
   }, []);
 
-  const fetchSongsFromPinata = async () => {
-    try {
-      // Fetch metadata from the URI
-      const metadataResponse = await axios.get('https://gateway.pinata.cloud/ipfs/QmPoQf2PgZVEYJXUM1ZLKQKZG8eXnPM1hkCZPJhysD2w5M');
-      const metadata = metadataResponse.data;
-      // Check if metadata is an object
-      if (typeof metadata !== 'object' || metadata === null) {
-        console.error("Metadata is not in the expected format.");
-        return;
-      }
-  
-      // Convert object values to an array
-      const songsArray = Object.values(metadata);
-      // Update state with fetched songs
-      setSongs(songsArray);
-    } catch (error) {
-      console.error("Error fetching songs from Pinata:", error);
-    }
-  };
-  
-  console.log(songs)
-  const playSong = (songUrl) => {
-    // Implement logic to play the song
-    console.log("Playing song:", songUrl);
-  };
+  if (loading) return <div className="loading-container">Loading...</div>;
 
   return (
-    <div className="App">
-      <>
-        <h1>Welcome to Spotify</h1>
-        <h2>Trending now,</h2>
-        <div className="">
-  <section id="">
-    {songs.map((song, index) => (
-      <div className="" key={index}>
-        <img src={song.thumbnailUrl} height="192px" width="341px" alt="Thumbnail" />
-        <p>{song.title}</p>
-        <p>{song.artist}</p>
-        <p>{song.album}</p>
-        <button onClick={() => playSong(song.url)}>Play</button>
-      </div>
-    ))}
-  </section>
-</div>
+    <div className="marketplace-container">
+      {items.length > 0 ? (
+        <Row xs={1} md={2} lg={3} className="g-4">
+          {items.map((item, idx) => (
+            <Col key={idx}>
+            <Card className="nft-card">
+  <Card.Img variant="top" src={item.image} className="nft-image" />
+  <Card.Body style={{backgroundColor:"black"}}>
+    <Card.Title>{item.name}</Card.Title>
+    <Card.Text>{item.description}</Card.Text>
+    <Button variant="custom" style={{backgroundColor:"green"}} onClick={() => buyMarketItem(item)}>
+      Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
+    </Button>
+  </Card.Body>
+</Card>
 
-        <h2>Recommended for today,</h2>
-        <div className="">
-          {/* Render recommended songs */}
-        </div>
-        <h2>Uniquely yours,</h2>
-      </>
+
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <div className="no-assets"></div>
+      )}
     </div>
   );
-}
+};
 
 export default Main;

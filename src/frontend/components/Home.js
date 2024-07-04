@@ -1,80 +1,66 @@
-import { useState, useEffect } from 'react';
-import { ethers } from "ethers";
-import { Row, Col, Card, Button } from 'react-bootstrap';
-import './Home.css';  
 
-const Home = ({ marketplace, nft }) => {
-  const [loading, setLoading] = useState(true);
-  const [items, setItems] = useState([]);
+import React, { useState, useEffect } from "react";
+import './Home.css';
+import axios from 'axios';
+import MusicPlayer from './MusicPlayer';  // Import the MusicPlayer component
 
-  const loadMarketplaceItems = async () => {
-    const itemCount = await marketplace.itemCount();
-    let items = [];
-    for (let i = 1; i <= itemCount; i++) {
-      const item = await marketplace.items(i);
-      if (!item.sold) {
-        const uri = await nft.tokenURI(item.tokenId);
-        const response = await fetch(uri);
-        const metadata = await response.json();
-        const totalPrice = await marketplace.getTotalPrice(item.itemId);
-        items.push({
-          totalPrice,
-          itemId: item.itemId,
-          seller: item.seller,
-          name: metadata.name,
-          description: metadata.description,
-          image: metadata.image,
-          audio: metadata.audio
-        });
-      }
-    }
-    setLoading(false);
-    setItems(items);
-  };
-
-  const buyMarketItem = async (item) => {
-    await (await marketplace.purchaseItem(item.itemId, { value: item.totalPrice })).wait();
-    loadMarketplaceItems();
-  };
+function Home() {
+  const [songs, setSongs] = useState([]);
+  const [currentSong, setCurrentSong] = useState(null);
 
   useEffect(() => {
-    loadMarketplaceItems();
+    fetchSongsFromPinata();
   }, []);
 
-  if (loading) return <div className="loading-container">Loading...</div>;
+  const fetchSongsFromPinata = async () => {
+    try {
+      // Fetch metadata from the URI
+      const metadataResponse = await axios.get('https://gateway.pinata.cloud/ipfs/QmX9VFuzStNSt4hYJa8obb1PPg29qYzq8N6UwPAxLzdRV9');
+      const metadata = metadataResponse.data;
+      // Check if metadata is an object
+      if (typeof metadata !== 'object' || metadata === null) {
+        console.error("Metadata is not in the expected format.");
+        return;
+      }
+  
+      // Convert object values to an array
+      const songsArray = Object.values(metadata);
+      // Update state with fetched songs
+      setSongs(songsArray);
+    } catch (error) {
+      console.error("Error fetching songs from Pinata:", error);
+    }
+  };
+
+  const playSong = (song) => {
+    console.log("Playing song:", song.audio);
+    setCurrentSong(song);
+  };
 
   return (
-    <div className="marketplace-container">
-      {items.length > 0 ? (
-        <Row xs={1} md={2} lg={3} className="g-4">
-          {items.map((item, idx) => (
-            <Col key={idx}>
-            <Card className="nft-card">
-  <Card.Img variant="top" src={item.image} className="nft-image" />
-  <Card.Body style={{backgroundColor:"black"}}>
-    <Card.Title>{item.name}</Card.Title>
-    <div className="audio-container">
-      <audio controls className="audio-player">
-        <source src={item.audio} type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
-    </div>
-    <Card.Text>{item.description}</Card.Text>
-    <Button variant="custom" style={{backgroundColor:"green"}} onClick={() => buyMarketItem(item)}>
-      Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
-    </Button>
-  </Card.Body>
-</Card>
-
-
-            </Col>
-          ))}
-        </Row>
-      ) : (
-        <div className="no-assets"></div>
-      )}
+    <div className="App">
+      <h1>Welcome to Spotify</h1>
+      <h2>Trending now,</h2>
+      <div className="song-list">
+        {songs.map((song, index) => (
+          <div className="song-card" key={index}>
+            <img src={song.thumbnail} alt="Thumbnail" className="song-thumbnail" />
+            <div className="song-info">
+              <p className="song-title">{song.songName}</p>
+              <p className="song-artist">{song.artistName}</p>
+            </div>
+            <button onClick={() => playSong(song)}>Play</button>
+          </div>
+        ))}
+      </div>
+      <h2>Recommended for today,</h2>
+      <div className="song-list">
+        {/* Render recommended songs */}
+      </div>
+      <h2>Uniquely yours,</h2>
+      {currentSong && <MusicPlayer song={currentSong} />}
     </div>
   );
-};
+}
 
 export default Home;

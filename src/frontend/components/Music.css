@@ -1,91 +1,99 @@
-/* Music.css */
+.marketplace-container {
+    padding: 20px;
+  }
+  
+  .loading-container, .no-assets {
+    text-align: center;
+    padding: 50px 0;
+    font-size: 24px;
+    color: white;
+  }
+  
+  .nft-card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .nft-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .nft-image {
+    height: 300px;
+    object-fit: cover;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+  }
+  
+  button.variant-custom {
+    background-image: linear-gradient(45deg, #6e45e2, #88d3ce);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  button.variant-custom:hover {
+    background-image: linear-gradient(45deg, #88d3ce, #6e45e2);
+  }
 
-/* General styling */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #1e1e1e; /* Dark background color similar to Spotify */
-  color: #fff; /* Text color */
+
+  .marketplace-container {
+    padding: 20px;
 }
 
-.App {
-  padding: 20px;
+.loading-container, .no-assets {
+    text-align: center;
+    padding: 50px 0;
+    font-size: 24px;
+    color: #333;
 }
 
-h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #1db954; /* Spotify's green */
+.nft-card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease-in-out;
+    position: relative; /* Updated to position the play button */
 }
 
-h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+.nft-card:hover {
+    transform: translateY(-10px);
 }
 
-.wrapper {
-  display: flex;
-  overflow-x: auto;
-  margin-bottom: 20px;
+.nft-image {
+    height: 300px;
+    object-fit: cover;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
 }
 
-section {
-  flex: 0 0 auto;
-  margin-right: 10px;
+button.variant-custom {
+    background-image: linear-gradient(45deg, #6e45e2, #88d3ce);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
 }
 
-.item {
-  margin-bottom: 10px;
+button.variant-custom:hover {
+    background-image: linear-gradient(45deg, #88d3ce, #6e45e2);
 }
 
-.item img {
-  border-radius: 5px;
+.play-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: none;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 10px;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 100;
 }
 
-.arrow__btn {
-  display: block;
-  width: 30px;
-  height: 30px;
-  background-color: #000;
-  border-radius: 50%;
-  margin: 0 auto;
-  position: relative;
-}
-
-.arrow__btn:before {
-  content: "";
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-top: 2px solid #fff;
-  border-right: 2px solid #fff;
-  transform: rotate(-45deg);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.os-scrollbar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 10px;
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent scrollbar */
-}
-
-.os-scrollbar-track {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent scrollbar track */
-}
-
-.os-scrollbar-handle {
-  width: 100%;
-  background-color: #1db954; /* Spotify's green */
-  border-radius: 5px;
-}
-
-.os-scrollbar-handle:hover {
-  background-color: #1ed760; /* Lighter shade of green on hover */
+.play-button:hover {
+    background-color: #45a049; /* Darker green on hover */
 }

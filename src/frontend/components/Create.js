@@ -6,7 +6,6 @@ import './Create.css';  // Ensure to create this CSS file in your project
 
 const Create = ({ marketplace, nft }) => {
   const [fileImg, setFileImg] = useState(null);
-  const [fileAudio, setFileAudio] = useState(null);
   const [name, setName] = useState("");
   const [desc, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -14,7 +13,7 @@ const Create = ({ marketplace, nft }) => {
 
   const sendFilesToIPFS = async (e) => {
     e.preventDefault();
-    if (!fileImg || !fileAudio || !name || !desc || !price) {
+    if (!fileImg || !name || !desc || !price) {
       alert("Please fill all fields and upload both files!");
       return;
     }
@@ -33,19 +32,7 @@ const Create = ({ marketplace, nft }) => {
 
       const imgHash = `https://gateway.pinata.cloud/ipfs/${resFileImg.data.IpfsHash}`;
 
-      const formDataAudio = new FormData();
-      formDataAudio.append("file", fileAudio);
-      const resFileAudio = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formDataAudio, {
-        headers: {
-          'pinata_api_key': process.env.REACT_APP_PINATA_API_KEY,
-          'pinata_secret_api_key': process.env.REACT_APP_PINATA_SECRET_API_KEY,
-          "Content-Type": "multipart/form-data"
-        },
-      });
-
-      const audioHash = `https://gateway.pinata.cloud/ipfs/${resFileAudio.data.IpfsHash}`;
-
-      await sendJSONtoIPFS(imgHash, audioHash);
+      await sendJSONtoIPFS(imgHash);
     } catch (error) {
       console.error("Files to IPFS: ", error);
     } finally {
@@ -56,7 +43,7 @@ const Create = ({ marketplace, nft }) => {
   const sendJSONtoIPFS = async (imgHash, audioHash) => {
     try {
       const resJSON = await axios.post("https://api.pinata.cloud/pinning/pinJsonToIPFS", {
-        name, description: desc, image: imgHash, audio: audioHash
+        name, description: desc, image: imgHash
       }, {
         headers: {
           'pinata_api_key': process.env.REACT_APP_PINATA_API_KEY,
@@ -90,11 +77,6 @@ const Create = ({ marketplace, nft }) => {
           <input type="file" className="form-control" id="fileImg" onChange={(e) => setFileImg(e.target.files[0])} />
           <label htmlFor="fileImg" className="file-upload-button">Choose Image</label>
           {fileImg && <div className="file-upload-name">{fileImg.name}</div>}
-        </div>
-        <div className="file-upload-wrapper">
-          <input type="file" className="form-control" id="fileAudio" onChange={(e) => setFileAudio(e.target.files[0])} />
-          <label htmlFor="fileAudio" className="file-upload-button">Choose Audio</label>
-          {fileAudio && <div className="file-upload-name">{fileAudio.name}</div>}
         </div>
         <Form.Control onChange={(e) => setName(e.target.value)} type="text" placeholder="Name" />
         <Form.Control onChange={(e) => setDescription(e.target.value)} as="textarea" placeholder="Artist" />
