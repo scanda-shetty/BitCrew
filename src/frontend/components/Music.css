@@ -1,5 +1,6 @@
 .marketplace-container {
     padding: 20px;
+    margin-left: 10px;
   }
   
   .loading-container, .no-assets {
@@ -53,6 +54,8 @@
 .nft-card {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease-in-out;
+    width: 300px;
+    height: 100px;
     position: relative; /* Updated to position the play button */
 }
 

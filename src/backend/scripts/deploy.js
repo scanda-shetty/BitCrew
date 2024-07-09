@@ -1,3 +1,5 @@
+const hre = require("hardhat");
+
 async function main() {
   const [deployer] = await ethers.getSigners();
 
@@ -7,11 +9,25 @@ async function main() {
   const NFT = await ethers.getContractFactory("NFT");
   const Marketplace = await ethers.getContractFactory("Marketplace");
 
-  const marketplace = await Marketplace.deploy(1);
-  const nft = await NFT.deploy();
+  // Adjust gas limit and gas price as needed
+  const gasLimit = 3000000; // Adjusted gas limit
+  const gasPrice = ethers.utils.parseUnits('5', 'gwei'); // Adjusted gas price
 
-  saveFrontendFiles(marketplace , "Marketplace");
-  saveFrontendFiles(nft , "NFT");
+  try {
+    const marketplace = await Marketplace.deploy(1, { gasLimit, gasPrice });
+    await marketplace.deployed();
+
+    const nft = await NFT.deploy({ gasLimit, gasPrice });
+    await nft.deployed();
+
+    console.log("Marketplace address:", marketplace.address);
+    console.log("NFT address:", nft.address);
+
+    saveFrontendFiles(marketplace, "Marketplace");
+    saveFrontendFiles(nft, "NFT");
+  } catch (error) {
+    console.error("Deployment failed:", error);
+  }
 }
 
 function saveFrontendFiles(contract, name) {
