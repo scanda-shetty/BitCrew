@@ -3,6 +3,9 @@ import './Home.css';
 import axios from 'axios';
 import MusicPlayer from './MusicPlayer';
 
+const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
+const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
+
 function Home() {
   const [songs, setSongs] = useState([]);
   const [currentSong, setCurrentSong] = useState(null);
@@ -98,11 +101,20 @@ function Home() {
         return song;
       });
 
-      // Update metadata on IPFS
-      const updatedMetadataResponse = await axios.put(`https://gateway.pinata.cloud/ipfs/${songsIpfsHash}`, metadata);
+      // Log the updated metadata before sending the PUT request
+      console.log('Updated metadata:', metadata);
+
+      // PUT updated metadata to IPFS
+      const updatedMetadataResponse = await axios.put(`https://gateway.pinata.cloud/ipfs/${songsIpfsHash}`, metadata, {
+        headers: {
+          'Content-Type': 'application/json', // Ensure correct content type
+          'pinata_api_key': pinataApiKey,
+          'pinata_secret_api_key': pinataSecretApiKey,
+        },
+      });
       console.log("Updated metadata on IPFS:", updatedMetadataResponse.data);
 
-      // Optional: Update local state with updated metadata
+      // Update local state with updated metadata
       setSongs(metadata);
     } catch (error) {
       console.error("Error updating listen count on IPFS:", error);
