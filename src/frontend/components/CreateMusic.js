@@ -10,11 +10,15 @@ const Create = () => {
   const [audio, setAudio] = useState(null);
   const [songName, setSongName] = useState('');
   const [artistName, setArtistName] = useState('');
+  const [genre, setGenre] = useState(''); // New state for genre
   const [songs, setSongs] = useState([]);
   const [pinataLink, setPinataLink] = useState('');
+  const [currentAccount, setCurrentAccount] = useState('');
+  const [uploading, setUploading] = useState(false); // State to track uploading state
 
   useEffect(() => {
     fetchExistingData();
+    getAccount(); // Fetch current MetaMask account when component mounts
   }, []);
 
   const handleFileChange = (e, setFile) => {
@@ -24,12 +28,15 @@ const Create = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!thumbnail || !audio || !songName || !artistName) {
+    if (!thumbnail || !audio || !songName || !artistName || !genre) {
       alert('Please fill in all fields');
       return;
     }
 
     try {
+      // Set uploading state to true
+      setUploading(true);
+
       // Upload thumbnail and audio files separately
       const thumbnailIpfsHash = await uploadFileToPinata(thumbnail);
       const audioIpfsHash = await uploadFileToPinata(audio);
@@ -41,6 +48,8 @@ const Create = () => {
         audio: `https://gateway.pinata.cloud/ipfs/${audioIpfsHash}`,
         songName,
         artistName,
+        genre, // Include genre
+        artistId: currentAccount, // Dynamically assign current account as artistId
         listenCount: 0, // Initialize listen count
       };
 
@@ -53,13 +62,15 @@ const Create = () => {
       setPinataLink(`https://gateway.pinata.cloud/ipfs/${updatedJsonIpfsHash}`);
 
       // Store the new IPFS hash locally
-      console.log('Storing IPFS hash in local storage:', updatedJsonIpfsHash);
       localStorage.setItem('songsIpfsHash', updatedJsonIpfsHash);
 
       alert('Song uploaded successfully!');
     } catch (error) {
       console.error('Error uploading song:', error);
       alert('Error uploading song');
+    } finally {
+      // Set uploading state back to false after upload completes (whether successful or not)
+      setUploading(false);
     }
   };
 
@@ -82,16 +93,21 @@ const Create = () => {
     });
     formData.append('pinataOptions', options);
 
-    const response = await axios.post(url, formData, {
-      maxContentLength: Infinity,
-      headers: {
-        'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-        pinata_api_key: pinataApiKey,
-        pinata_secret_api_key: pinataSecretApiKey,
-      },
-    });
-
-    return response.data.IpfsHash;
+    try {
+      const response = await axios.post(url, formData, {
+        maxContentLength: Infinity,
+        headers: {
+          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+          pinata_api_key: pinataApiKey,
+          pinata_secret_api_key: pinataSecretApiKey,
+        },
+      });
+      
+      return response.data.IpfsHash;
+    } catch (error) {
+      console.error('Error uploading file to Pinata:', error);
+      throw error; // Re-throw the error to propagate it upwards
+    }
   };
 
   const fetchExistingData = async () => {
@@ -126,20 +142,30 @@ const Create = () => {
     return response.data.IpfsHash;
   };
 
+  const getAccount = async () => {
+    // Example function to retrieve current MetaMask account
+    try {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      setCurrentAccount(accounts[0]);
+    } catch (error) {
+      console.error('Error fetching MetaMask account:', error);
+    }
+  };
+
   return (
     <div className="create-container">
       <h1>Upload Song</h1>
       <div className="form-container">
         <div className="file-upload-wrapper">
-          <input type="file" onChange={(e) => handleFileChange(e, setThumbnail)} />
-          <label htmlFor="fileImg" className="file-upload-button">
+          <input type="file" id="thumbnail" onChange={(e) => handleFileChange(e, setThumbnail)} />
+          <label htmlFor="thumbnail" className="file-upload-button">
             Choose Thumbnail
           </label>
           {thumbnail && <div className="file-upload-name">{thumbnail.name}</div>}
         </div>
         <div className="file-upload-wrapper">
-          <input type="file" onChange={(e) => handleFileChange(e, setAudio)} />
-          <label htmlFor="fileAudio" className="file-upload-button">
+          <input type="file" id="audio" onChange={(e) => handleFileChange(e, setAudio)} />
+          <label htmlFor="audio" className="file-upload-button">
             Choose Song
           </label>
           {audio && <div className="file-upload-name">{audio.name}</div>}
@@ -152,7 +178,14 @@ const Create = () => {
           <label>Artist Name:</label>
           <input type="text" value={artistName} onChange={(e) => setArtistName(e.target.value)} />
         </div>
-        <button className='submit-button' type="submit" onClick={handleSubmit}>Upload</button>
+        <div className='container-name'>
+          <label>Genre:</label> {/* New input field for genre */}
+          <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
+        </div>
+        {/* Display "Uploading..." when uploading */}
+        <button className='submit-button' type="submit" onClick={handleSubmit} disabled={uploading}>
+          {uploading ? 'Uploading...' : 'Upload'}
+        </button>
       </div>
       {pinataLink && (
         <div>

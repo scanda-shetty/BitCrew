@@ -11,7 +11,7 @@ async function main() {
 
   // Adjust gas limit and gas price as needed
   const gasLimit = 3000000; // Adjusted gas limit
-  const gasPrice = ethers.utils.parseUnits('5', 'gwei'); // Adjusted gas price
+  const gasPrice = ethers.utils.parseUnits('25', 'gwei'); // Adjusted gas price
 
   try {
     const marketplace = await Marketplace.deploy(1, { gasLimit, gasPrice });
