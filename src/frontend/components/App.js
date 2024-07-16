@@ -31,78 +31,23 @@ function App() {
 
   // MetaMask Login/Connect
   const web3Handler = async () => {
-    try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      setAccount(accounts[0]);
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    setAccount(accounts[0])
+    // Get provider from Metamask
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    // Set signer
+    const signer = provider.getSigner()
 
-      // Define Sepolia network parameters
-      const sepoliaChainId = '0xaa36a7'; // Hexadecimal for 11155111
+    window.ethereum.on('chainChanged', (chainId) => {
+      window.location.reload();
+    })
 
-      // Get current network
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const { chainId } = await provider.getNetwork();
-
-      // Check if the current network is Sepolia
-      if (chainId !== 11155111) {
-        try {
-          // Request to switch to Sepolia network
-          await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: sepoliaChainId }],
-          });
-          // Reload the page to ensure network switch
-          window.location.reload();
-        } catch (switchError) {
-          // This error code indicates that the chain has not been added to MetaMask
-          if (switchError.code === 4902) {
-            try {
-              await window.ethereum.request({
-                method: 'wallet_addEthereumChain',
-                params: [
-                  {
-                    chainId: sepoliaChainId,
-                    chainName: 'Sepolia Test Network',
-                    rpcUrls: ['https://eth-sepolia.g.alchemy.com/v2/2-I7Mtl9ILKCburtDvBjD1lhuGKf3XxK'], // Replace with your RPC URL
-                    nativeCurrency: {
-                      name: 'Sepolia Ether',
-                      symbol: 'SEP',
-                      decimals: 18,
-                    },
-                    blockExplorerUrls: ['https://sepolia.etherscan.io'],
-                  },
-                ],
-              });
-              // Reload the page to ensure network switch
-              window.location.reload();
-            } catch (addError) {
-              console.error(addError);
-              // Handle the error of not being able to add the network
-            }
-          } else {
-            console.error(switchError);
-            // Handle other errors (e.g., user rejected the request)
-          }
-        }
-      } else {
-        // Set signer if already on Sepolia
-        const signer = provider.getSigner();
-        loadContracts(signer);
-      }
-
-      window.ethereum.on('chainChanged', (chainId) => {
-        window.location.reload();
-      });
-
-      window.ethereum.on('accountsChanged', async function (accounts) {
-        setAccount(accounts[0]);
-        await web3Handler();
-      });
-    } catch (error) {
-      console.error(error);
-      // Handle errors (e.g., user not connected to Sepolia, Metamask not installed)
-    }
-  };
-
+    window.ethereum.on('accountsChanged', async function (accounts) {
+      setAccount(accounts[0])
+      await web3Handler()
+    })
+    loadContracts(signer)
+  }
   const loadContracts = async (signer) => {
     // Get deployed copies of contracts
     const marketplace = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
