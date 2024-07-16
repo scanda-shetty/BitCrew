@@ -15,10 +15,10 @@ import MarketplaceAbi from '../contractsData/Marketplace.json'
 import MarketplaceAddress from '../contractsData/Marketplace-address.json'
 import NFTAbi from '../contractsData/NFT.json'
 import NFTAddress from '../contractsData/NFT-address.json'
-import { useState } from 'react'
+import { useState , useEffect } from 'react'
 import { ethers } from "ethers"
 import { Spinner } from 'react-bootstrap'
-
+import axios from "axios";
 import './App.css';
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
   const [account, setAccount] = useState(null)
   const [nft, setNFT] = useState({})
   const [marketplace, setMarketplace] = useState({})
+  const [user, setuser] = useState()
   // MetaMask Login/Connect
     const web3Handler = async () => {
       try {
@@ -84,6 +85,7 @@ function App() {
           // Set signer if already on Sepolia
           const signer = provider.getSigner();
           loadContracts(signer);
+
         }
     
         window.ethereum.on('chainChanged', (chainId) => {
@@ -106,8 +108,14 @@ function App() {
     setMarketplace(marketplace)
     const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer)
     setNFT(nft)
-    setLoading(false)
   }
+
+  useEffect(() => {
+    if (user === 'artist') {
+      setLoading(false)
+    }
+  }, [user])
+  
 
   return (
     <BrowserRouter>
@@ -119,7 +127,9 @@ function App() {
           {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
               <Spinner animation="border" style={{ display: 'flex' }} />
-              <p className='mx-3 my-0'>Awaiting Metamask Connection...</p>
+              <h2>Select your user type:</h2>
+              <button onClick={() => setuser('artist')}>Artist</button>
+              <button onClick={() => setuser('listener')}>Listener</button>
             </div>
           ) : (
             <Routes>
