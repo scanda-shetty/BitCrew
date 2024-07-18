@@ -9,11 +9,13 @@ const Create = ({ marketplace, nft }) => {
   const [name, setName] = useState("");
   const [desc, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [supply, setSupply] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   const sendFilesToIPFS = async (e) => {
     e.preventDefault();
-    if (!fileImg || !name || !desc || !price) {
+    if (!fileImg || !name || !desc || !price || !supply) {
       alert("Please fill all fields and upload both files!");
       return;
     }
@@ -58,17 +60,21 @@ const Create = ({ marketplace, nft }) => {
     }
   };
 
-  const mintThenList = async (uri) => {
+  const mintThenList = async (uri, price) => {
     try {
-      await (await nft.mint(uri)).wait();
-      const id = await nft.tokenCount();
-      await (await nft.setApprovalForAll(marketplace.address, true)).wait();
-      const listingPrice = ethers.utils.parseEther(price.toString());
-      await (await marketplace.makeItem(nft.address, id, listingPrice)).wait();
+        const tx = await nft.mintMultiple(uri, supply);
+        const receipt = await tx.wait();
+        const tokenIds = receipt.events.filter(event => event.event === 'Transfer').map(event => event.args.tokenId);
+        await (await nft.setApprovalForAll(marketplace.address, true)).wait();
+        const listingPrice = ethers.utils.parseEther(price.toString());
+        for (const id of tokenIds) {
+            await (await marketplace.makeItem(nft.address, id, listingPrice)).wait();
+        }
     } catch (error) {
-      console.error("Mint then List: ", error);
+        console.error("Mint then List: ", error);
     }
   };
+
 
   return (
     <div className="create-container">
@@ -80,6 +86,7 @@ const Create = ({ marketplace, nft }) => {
         </div>
         <Form.Control onChange={(e) => setName(e.target.value)} type="text" placeholder="Name" />
         <Form.Control onChange={(e) => setDescription(e.target.value)} as="textarea" placeholder="Artist" />
+        <Form.Control onChange={(e) => setSupply(e.target.value)} type="number" placeholder="Supply" />
         <Form.Control onChange={(e) => setPrice(e.target.value)} type="number" placeholder="Price in ETH" />
         <Button onClick={sendFilesToIPFS} variant="primary" disabled={loading}>
           {loading ? 'Processing...' : 'Create & List NFT!'}
