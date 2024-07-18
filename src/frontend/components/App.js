@@ -306,9 +306,7 @@ function App() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Button variant="danger" onClick={resetPreferences}>
-            Reset Preferences
-          </Button>
+      
     </BrowserRouter>
   );
 }

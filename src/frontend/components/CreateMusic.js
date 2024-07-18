@@ -15,6 +15,8 @@ const Create = () => {
   const [pinataLink, setPinataLink] = useState('');
   const [currentAccount, setCurrentAccount] = useState('');
   const [uploading, setUploading] = useState(false); // State to track uploading state
+  const [songLanguage, setSongLanguage] = useState(''); // New state for song language
+  const [isFree, setIsFree] = useState(false); // New state for isFree
 
   useEffect(() => {
     fetchExistingData();
@@ -28,7 +30,7 @@ const Create = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!thumbnail || !audio || !songName || !artistName || !genre) {
+    if (!thumbnail || !audio || !songName || !artistName || !genre || !songLanguage) {
       alert('Please fill in all fields');
       return;
     }
@@ -48,9 +50,12 @@ const Create = () => {
         audio: `https://gateway.pinata.cloud/ipfs/${audioIpfsHash}`,
         songName,
         artistName,
-        genre, // Include genre
-        artistId: currentAccount, // Dynamically assign current account as artistId
-        listenCount: 0, // Initialize listen count
+        genre,
+        songLanguage, // Include song language
+        isFree, // Include isFree
+        artistId: currentAccount,
+        listenCount: 0,
+        uploadTime: new Date().toISOString(), // Include upload time
       };
 
       // Update songs state with new song
@@ -181,6 +186,16 @@ const Create = () => {
         <div className='container-name'>
           <label>Genre:</label> {/* New input field for genre */}
           <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
+        </div>
+        <div className='container-name'>
+          <label>Song Language:</label>
+          <input type="text" value={songLanguage} onChange={(e) => setSongLanguage(e.target.value)} />
+        </div>
+        <div className='container-name'>
+          <label>
+            Is this song free?  
+            <input type="checkbox" checked={isFree} onChange={(e) => setIsFree(e.target.checked)} />
+          </label>
         </div>
         {/* Display "Uploading..." when uploading */}
         <button className='submit-button' type="submit" onClick={handleSubmit} disabled={uploading}>
