@@ -265,6 +265,7 @@ const updateUserDataOnIPFS = async (updatedUserData) => {
           songName: song.songName,
           artistName: song.artistName,
           thumbnail: song.thumbnail,
+          audio :song.audio,
           genre: song.genre || "easy listening",
           language: song.language || "English"
       }));
