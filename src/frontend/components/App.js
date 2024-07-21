@@ -1,9 +1,6 @@
+// App.js
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navigation from './Navbar';
 import Home from './Home.js';
 import Main from './Music.js';
@@ -16,6 +13,8 @@ import MarketplaceAbi from '../contractsData/Marketplace.json';
 import MarketplaceAddress from '../contractsData/Marketplace-address.json';
 import NFTAbi from '../contractsData/NFT.json';
 import NFTAddress from '../contractsData/NFT-address.json';
+import DynamicRoyaltiesAbi from '../../backend/artifacts/src/backend/contracts/DynamicRoyalties.sol/DynamicRoyalties.json';
+import DynamicRoyaltiesAddress from '../contractsData/DynamicRoyalties-address.json';
 import { Spinner } from 'react-bootstrap';
 import { ethers } from 'ethers';
 import { MusicPlayerProvider } from './MusicPlayerContext';
@@ -27,33 +26,33 @@ function App() {
   const [account, setAccount] = useState(null);
   const [nft, setNFT] = useState({});
   const [marketplace, setMarketplace] = useState({});
+  const [dynamicRoyalties, setDynamicRoyalties] = useState({});
   const [songs, setSongs] = useState([]);
 
-  // MetaMask Login/Connect
   const web3Handler = async () => {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    setAccount(accounts[0])
-    // Get provider from Metamask
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    // Set signer
-    const signer = provider.getSigner()
+    setAccount(accounts[0]);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
 
     window.ethereum.on('chainChanged', (chainId) => {
       window.location.reload();
-    })
+    });
 
     window.ethereum.on('accountsChanged', async function (accounts) {
-      setAccount(accounts[0])
-      await web3Handler()
-    })
-    loadContracts(signer)
-  }
+      setAccount(accounts[0]);
+      await web3Handler();
+    });
+    loadContracts(signer);
+  };
+
   const loadContracts = async (signer) => {
-    // Get deployed copies of contracts
     const marketplace = new ethers.Contract(MarketplaceAddress.address, MarketplaceAbi.abi, signer);
     setMarketplace(marketplace);
     const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
     setNFT(nft);
+    const dynamicRoyalties = new ethers.Contract(DynamicRoyaltiesAddress.address, DynamicRoyaltiesAbi.abi, signer);
+    setDynamicRoyalties(dynamicRoyalties);
     setLoading(false);
   };
 
@@ -85,7 +84,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <MusicPlayerProvider> {/* Wrap your entire app with MusicPlayerProvider */}
+      <MusicPlayerProvider>
         <div className="App">
           <Navigation web3Handler={web3Handler} account={account} />
           <div>
@@ -96,9 +95,9 @@ function App() {
               </div>
             ) : (
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home account={account} dynamicRoyalties={dynamicRoyalties} />} />
                 <Route path="/NFT" element={<Main marketplace={marketplace} nft={nft} />} />
-                <Route path="/create" element={<CreateMusic marketplace={marketplace} nft={nft} />} />
+                <Route path="/create" element={<CreateMusic marketplace={marketplace} account={account} dynamicRoyalties={dynamicRoyalties}/>} />
                 <Route path="/create-nft/:songId" element={<Create marketplace={marketplace} nft={nft} account={account} songs={songs} />} />
                 <Route path="/my-listed-items" element={<MyListedItems marketplace={marketplace} nft={nft} account={account} />} />
                 <Route path="/my-purchases" element={<MyPurchases marketplace={marketplace} nft={nft} account={account} />} />

@@ -4,11 +4,15 @@ import './Home.css';
 import axios from 'axios';
 import { useMusicPlayer } from './MusicPlayerContext';
 import MusicPlayer from './MusicPlayer';
+import UserInsights from './userInsights';
+import DynamicRoyaltiesAbi from '../../backend/artifacts/src/backend/contracts/DynamicRoyalties.sol/DynamicRoyalties.json';
+import DynamicRoyaltiesAddress from '../contractsData/DynamicRoyalties-address.json';
+import { ethers } from 'ethers';
 
 const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
 const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
 
-function Home() {
+function Home({ account }) {
   const [songs, setSongs] = useState([]);
   const { currentSong, setCurrentSong } = useMusicPlayer();
 
@@ -49,6 +53,19 @@ function Home() {
 
   const playSong = async (song) => {
     try {
+      // Set up ethers provider and signer
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      const signer = provider.getSigner();
+
+      // Create contract instance
+      const contract = new ethers.Contract(DynamicRoyaltiesAddress.address, DynamicRoyaltiesAbi.abi, signer);
+
+      // Call listen function on the smart contract
+      const tx = await contract.listen(song.id);
+      await tx.wait(); // Wait for the transaction to be mined
+
+      // Update listen count locally
       const updatedSongs = songs.map(s => {
         if (s.id === song.id) {
           const newListenCount = s.listenCount + 1;
@@ -58,12 +75,16 @@ function Home() {
         return s;
       });
       setSongs(updatedSongs);
+
+      // Update listen count on IPFS
       await updateListenCountOnIPFS(song.id, song.listenCount + 1);
     } catch (error) {
       console.error("Error updating listen count:", error);
     }
     setCurrentSong(song);
+    updateUserListenData(song); // New function to update user listen data
   };
+
 
   const getListenCountFromStorage = (songId) => {
     const listenCountStr = localStorage.getItem(`listenCount_${songId}`);
@@ -105,6 +126,32 @@ function Home() {
     }
   };
 
+  const updateUserListenData = (song) => {
+    const userListenData = JSON.parse(localStorage.getItem('userListenData')) || {};
+    const userId = account;
+    if (!userListenData[userId]) {
+      userListenData[userId] = { artists: {}, genres: {} };
+    }
+
+    const userData = userListenData[userId];
+
+    // Update artist listen count
+    if (userData.artists[song.artistName]) {
+      userData.artists[song.artistName] += 1;
+    } else {
+      userData.artists[song.artistName] = 1;
+    }
+
+    // Update genre listen count
+    if (userData.genres[song.genre]) {
+      userData.genres[song.genre] += 1;
+    } else {
+      userData.genres[song.genre] = 1;
+    }
+
+    localStorage.setItem('userListenData', JSON.stringify(userListenData));
+  };
+
   return (
     <div className="App">
       <h1>Welcome to Swar</h1>
@@ -130,6 +177,7 @@ function Home() {
         <h2>Now Playing..</h2>
         {currentSong && <MusicPlayer song={currentSong} />}
       </div>
+      <UserInsights account={account} />
     </div>
   );
 }
