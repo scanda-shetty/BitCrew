@@ -1,37 +1,31 @@
-# NFT Marketplace
+# Decentralized Music Streaming Platform
 
-
-This repository is clone of nft_marketplace repository of dappuniversity. 
-- Link of original repository is https://github.com/dappuniversity/nft_marketplace
+Reference - Link of original repository is https://github.com/dappuniversity/nft_marketplace
 ## Technology Stack & Tools
-
-- Solidity (Writing Smart Contract)
-- Javascript (React & Testing)
-- [Ethers](https://docs.ethers.io/v5/) (Blockchain Interaction)
-- [Hardhat](https://hardhat.org/) (Development Framework)
-- [Ipfs](https://ipfs.io/) (Metadata storage)
-- [React routers](https://v5.reactrouter.com/) (Navigational components)
-
-## Requirements For Initial Setup
-- Install [NodeJS](https://nodejs.org/en/), should work with any node version below 16.5.0
-- Install [Hardhat](https://hardhat.org/)
 
 ## Setting Up
 ### 1. Clone/Download the Repository
 
 ### 2. Install Dependencies:
 ```
-$ cd nft_marketplace
 $ npm install
 ```
-### 3. Boot up local development blockchain
+### 3. Create .env file
 ```
-$ cd nft_marketplace
-$ npx hardhat node
+Format
+REACT_APP_PINATA_API_KEY=""
+REACT_APP_PINATA_SECRET_API_KEY=""
+```
+### 4. Initiate local blockchain network using hardhat
 ```
 npx hardhat node
 npx hardhat run src/backend/scripts/deploy.js --network localhost
-npm run star
+npx hardhat run src/backend/scripts/deployDynamicRoyalties.js --network localhost
+npx hardhat run src/backend/scripts/fundContract.js --network localhost
+npm run start
+
+To check smart contract status
+npx hardhat run src/backend/scripts/checkData.js --network localhost
 
 
 
