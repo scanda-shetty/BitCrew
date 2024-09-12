@@ -1,0 +1,56 @@
+
+.custom-navbar {
+    background-color:black;
+   
+}
+
+.brand {
+    font-size: 1.3rem; /* Increase the font size */
+    font-weight: bold;
+    color: #1db954 !important; /* Highlight Swar in green */
+    text-transform: uppercase; /* Optional: Make the text uppercase */
+}
+
+.nav-link {
+    color: #ffffff !important; /* Force white text color */
+    margin: 0 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #1db954 !important; /* Force green color on hover */
+    transform: scale(1.1);
+}
+
+.account-link {
+    text-decoration: none;
+}
+
+.account-button {
+    color: #ffffff !important; /* Force white text color */
+    border-color: #1db954;
+    background-color: #1db954;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.account-button:hover {
+    background-color: #148f3d;
+    border-color: #148f3d;
+}
+
+.connect-button {
+    color: #1db954 !important; /* Force green text color */
+    border-color: #1db954;
+    background-color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.connect-button:hover {
+    color: #ffffff !important; /* Force white text color on hover */
+    background-color: #1db954;
+    border-color: #1db954;
+}

@@ -13,6 +13,7 @@ import Create from './Create.js';
 import CreateMusic from './CreateMusic.js';
 import MyRoyalty from './MyRoyalty.js';
 import MyListedItems from './MyListedItems.js';
+import ForYou from './ForYou.js';
 import MyPurchases from './MyPurchases.js';
 import PreferencesModal from './PreferencesModal.js'; // Adjusted import path for PreferencesModal
 import MarketplaceAbi from '../contractsData/Marketplace.json';
@@ -22,6 +23,7 @@ import NFTAddress from '../contractsData/NFT-address.json';
 import { Spinner, Modal, Button } from 'react-bootstrap';
 import { ethers } from 'ethers';
 import { MusicPlayerProvider } from './MusicPlayerContext';
+
 import './App.css';
 import axios from 'axios';
 
@@ -187,7 +189,8 @@ function App() {
       const userData = {
         userId: account,
         preferences: preferencesData,
-        songsLiked: getStoredLikedSongs() || []  // Initialize with an empty array or fetch existing liked songs
+        songsLiked: getStoredLikedSongs() || [] , // Initialize with an empty array or fetch existing liked songs
+        songsStreamed:getStoredStreamedSongs()||[]
       };
   
       // Update user data on IPFS
@@ -204,6 +207,10 @@ function App() {
   const getStoredLikedSongs = () => {
     const storedLikedSongs = localStorage.getItem('likedSongs');
     return storedLikedSongs ? JSON.parse(storedLikedSongs) : [];
+  };
+  const getStoredStreamedSongs = () => {
+    const storedStreamedSongs = localStorage.getItem('streamedSongs');
+    return storedStreamedSongs ? JSON.parse(storedStreamedSongs) : [];
   };
 
  
@@ -270,6 +277,7 @@ function App() {
   return (
     <BrowserRouter>
       <MusicPlayerProvider>
+      
         <div className="App">
           <Navigation web3Handler={web3Handler} account={account} />
           <div>
@@ -285,11 +293,18 @@ function App() {
                 <Route path="/create" element={<CreateMusic marketplace={marketplace} nft={nft} />} />
                 <Route path="/create-nft/:songId" element={<Create marketplace={marketplace} nft={nft} account={account} songs={songs} />} />
                 <Route path="/my-listed-items" element={<MyListedItems marketplace={marketplace} nft={nft} account={account} />} />
+
                 <Route path="/my-purchases" element={<MyPurchases marketplace={marketplace} nft={nft} account={account} />} />
+                
+               
+                  <Route path="/forYou" element={<ForYou/>} />
+                  
+                
               </Routes>
             )}
           </div>
         </div>
+      
       </MusicPlayerProvider>
 
       {/* Preferences Modal */}

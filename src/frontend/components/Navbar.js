@@ -15,6 +15,7 @@ const Navigation = ({ web3Handler, account }) => {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/about">About Swar</Nav.Link>
+                        <Nav.Link as={Link} to="/forYou">ForYou</Nav.Link>
                         <Nav.Link as={Link} to="/create">Share Your Music</Nav.Link>
                         <Nav.Link as={Link} to="/NFT">Browse NFTs</Nav.Link> 
                         <Nav.Link as={Link} to="/my-listed-items">My Items</Nav.Link>

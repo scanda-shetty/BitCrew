@@ -12,6 +12,8 @@ function Home() {
   const [likedSongsByAccount, setLikedSongsByAccount] = useState({});
   const { currentSong, setCurrentSong } = useMusicPlayer();
   const [currentAccount, setCurrentAccount] = useState('');
+  const [streamedSongsByAccount, setStreamedSongsByAccount] = useState({});
+
 
   useEffect(() => {
     async function fetchAccount() {
@@ -57,6 +59,7 @@ function Home() {
       // Initialize userLiked state based on stored liked songs by the current MetaMask account
       metadata = metadata.map(song => ({
         ...song,
+        likesCount: song.likesCount || 0,
         userLiked: likedSongsByAccount[currentAccount] ? likedSongsByAccount[currentAccount].some(s => s.id === song.id) : false
       }));
 
@@ -98,12 +101,40 @@ function Home() {
       });
       setSongs(updatedSongs);
       await updateListenCountOnIPFS(song.id, song.listenCount + 1);
+
+      updateStreamedSongs(song);
     } catch (error) {
       console.error("Error updating listen count:", error);
     }
     setCurrentSong(song);
   };
-
+  const updateStreamedSongs = async (song) => {
+    const updatedStreamedSongs = { ...streamedSongsByAccount };
+  
+    if (!updatedStreamedSongs[currentAccount]) {
+      updatedStreamedSongs[currentAccount] = [];
+    }
+  
+    // Add the streamed song if not already present
+    if (!updatedStreamedSongs[currentAccount].find(s => s.id === song.id)) {
+      updatedStreamedSongs[currentAccount].push(song);
+    }
+  
+    setStreamedSongsByAccount(updatedStreamedSongs);
+    localStorage.setItem('streamedSongs', JSON.stringify(updatedStreamedSongs));
+  
+    // Update user data on IPFS with the new streamed songs
+    const userData = {
+      userId: currentAccount,
+      preferences: getStoredPreferences(), // Include other preferences if needed
+      songsLiked: likedSongsByAccount[currentAccount] || [],
+      songsStreamed: updatedStreamedSongs[currentAccount] || []
+    };
+  
+    // Update user data on IPFS
+    await updateUserDataOnIPFS(userData);
+  };
+  
   const updateListenCountOnIPFS = async (songId, listenCount) => {
     try {
       const songsIpfsHash = localStorage.getItem('songsIpfsHash');
@@ -183,7 +214,8 @@ function Home() {
     const userData = {
       userId: currentAccount,
       preferences: getStoredPreferences(), // Include other preferences if needed
-      songsLiked: updatedLikedSongs[currentAccount] || []
+      songsLiked: updatedLikedSongs[currentAccount] || [],
+     
     };
 
     // Update user data on IPFS
@@ -270,11 +302,22 @@ const updateUserDataOnIPFS = async (updatedUserData) => {
           language: song.language || "English"
       }));
 
+      const simplifiedSongsStreamed = updatedUserData.songsStreamed.map(song => ({
+        id: song.id,
+        songName: song.songName,
+        artistName: song.artistName,
+        thumbnail: song.thumbnail,
+        audio: song.audio,
+        genre: song.genre || "easy listening",
+        language: song.language || "English"
+      }));
+
       // Update user data for IPFS
       const userDataForIPFS = {
           userId: updatedUserData.userId,
           preferences: updatedUserData.preferences,
-          songsLiked: simplifiedSongsLiked
+          songsLiked: simplifiedSongsLiked,
+          songsStreamed: simplifiedSongsStreamed
       };
 
       if (existingUserIndex !== -1) {
