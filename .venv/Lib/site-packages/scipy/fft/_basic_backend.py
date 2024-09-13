@@ -25,7 +25,6 @@ def _execute_1D(func_str, pocketfft_func, x, n, axis, norm, overwrite_x, workers
     xp = array_namespace(x)
 
     if is_numpy(xp):
-        x = np.asarray(x)
         return pocketfft_func(x, n=n, axis=axis, norm=norm,
                               overwrite_x=overwrite_x, workers=workers, plan=plan)
 
@@ -43,7 +42,6 @@ def _execute_nD(func_str, pocketfft_func, x, s, axes, norm, overwrite_x, workers
     xp = array_namespace(x)
     
     if is_numpy(xp):
-        x = np.asarray(x)
         return pocketfft_func(x, s=s, axes=axes, norm=norm,
                               overwrite_x=overwrite_x, workers=workers, plan=plan)
 
@@ -153,7 +151,6 @@ def hfftn(x, s=None, axes=None, norm=None,
           overwrite_x=False, workers=None, *, plan=None):
     xp = array_namespace(x)
     if is_numpy(xp):
-        x = np.asarray(x)
         return _pocketfft.hfftn(x, s, axes, norm, overwrite_x, workers, plan=plan)
     if is_complex(x, xp):
         x = xp.conj(x)
@@ -170,7 +167,6 @@ def ihfftn(x, s=None, axes=None, norm=None,
            overwrite_x=False, workers=None, *, plan=None):
     xp = array_namespace(x)
     if is_numpy(xp):
-        x = np.asarray(x)
         return _pocketfft.ihfftn(x, s, axes, norm, overwrite_x, workers, plan=plan)
     return xp.conj(rfftn(x, s, axes, _swap_direction(norm),
                          overwrite_x, workers, plan=plan))

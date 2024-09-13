@@ -28,6 +28,7 @@ function Home() {
     }
 
     fetchAccount();
+  
 
     // Listen for account changes
     window.ethereum.on('accountsChanged', (accounts) => {

@@ -1,151 +1,117 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import MusicPlayer from './MusicPlayer';
-import './ForYou.css'; // Optional CSS styling for the ForYou page
-import { useMusicPlayer } from './MusicPlayerContext';
+import LoadingSpinner from './LoadingSpinner'; // Import the spinner component
+import './ForYou.css';
 
-const ForYou = () => {
+const Recommendation = () => {
   const [recommendedSongs, setRecommendedSongs] = useState([]);
-  const {currentSong, setCurrentSong} = useMusicPlayer(); // Context function to handle song playback
-  const [currentAccount, setCurrentAccount] = useState('');
-  const [likedSongs, setLikedSongs] = useState([]);
+  const [userId, setUserId] = useState('');
+  const [songsData, setSongsData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
-    fetchRecommendedSongs();
-    fetchLikedSongs();
-    getAccount(); // Fetch current MetaMask account
+    const fetchUserAccount = async () => {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const currentUserAccount = accounts[0];  // Get the current account
+          setUserId(currentUserAccount);
+        } catch (error) {
+          console.error('Error fetching user account:', error);
+        }
+      } else {
+        console.error('MetaMask is not installed');
+      }
+    };
+
+    fetchUserAccount();
+
+    // Event listener for account changes
+    const handleAccountsChanged = (accounts) => {
+      if (accounts.length > 0) {
+        setUserId(accounts[0]);
+      }
+    };
+
+    window.ethereum.on('accountsChanged', handleAccountsChanged);
+
+    return () => {
+      if (window.ethereum) {
+        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+      }
+    };
   }, []);
 
-  const fetchRecommendedSongs = async () => {
-    const existingIpfsHash = localStorage.getItem('songsIpfsHash');
-    if (!existingIpfsHash) {
-      console.log('No existing IPFS hash found in local storage.');
-      return;
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true); // Start loading
+      const songsIpfsHash = localStorage.getItem('songsIpfsHash');
+      const userIpfsHash = localStorage.getItem('usersIpfsHash');
 
-    try {
-      const response = await axios.get(`https://gateway.pinata.cloud/ipfs/${existingIpfsHash}`);
-      if (response.data) {
-        console.log('Fetched Songs:', response.data);
-        setRecommendedSongs(response.data);
+      if (songsIpfsHash && userIpfsHash) {
+        try {
+          const [songsResponse, userResponse] = await Promise.all([
+            axios.get(`https://gateway.pinata.cloud/ipfs/${songsIpfsHash}`),
+            axios.get(`https://gateway.pinata.cloud/ipfs/${userIpfsHash}`)
+          ]);
+
+          console.log('Songs Data:', songsResponse.data);
+          console.log('User Data:', userResponse.data);
+
+          setSongsData(songsResponse.data);
+          setUserData(userResponse.data);  // Ensure userData is an array
+        } catch (error) {
+          console.error('Error fetching data from IPFS:', error);
+        } finally {
+          setLoading(false); // End loading
+        }
       }
-    } catch (error) {
-      console.error('Error fetching recommended songs:', error);
-    }
-  };
+    };
 
-  const fetchLikedSongs = () => {
-    const storedLikedSongs = localStorage.getItem('likedSongs');
-    setLikedSongs(storedLikedSongs ? JSON.parse(storedLikedSongs) : []);
-  };
+    fetchData(); 
+  }, [userId]);
 
-  const getAccount = async () => {
-    try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      setCurrentAccount(accounts[0]);
-    } catch (error) {
-      console.error('Error fetching MetaMask account:', error);
-    }
-  };
-
-  const handlePlaySong = async (song) => {
-    setCurrentSong(song); // This function should handle the actual song playback
-  
-    // Fetch and parse streamedSongs from localStorage
-    let storedStreamedSongs = JSON.parse(localStorage.getItem('streamedSongs')) || [];
-  
-    // Check if storedStreamedSongs is an object, and convert to an array if necessary
-    if (typeof storedStreamedSongs === 'object' && !Array.isArray(storedStreamedSongs)) {
-      // Convert object keys to an array
-      storedStreamedSongs = Object.keys(storedStreamedSongs);
-    }
-  
-    if (!Array.isArray(storedStreamedSongs)) {
-      console.error('Stored streamed songs are not an array:', storedStreamedSongs);
-      return;
-    }
-  
-    // Update streamedSongs
-    if (!storedStreamedSongs.includes(song.id)) {
-      const updatedStreamedSongs = [...storedStreamedSongs, song.id];
-      localStorage.setItem('streamedSongs', JSON.stringify(updatedStreamedSongs));
-      await updateUserDataOnIPFS('streamedSongs', updatedStreamedSongs);
-    }
-  };
-  
-
-  const handleLikeSong = async (song) => {
-    let updatedLikedSongs = Array.isArray(likedSongs) ? [...likedSongs] : [];
-
-    if (updatedLikedSongs.includes(song.id)) {
-      updatedLikedSongs = updatedLikedSongs.filter((likedSongId) => likedSongId !== song.id);
-    } else {
-      updatedLikedSongs.push(song.id);
-    }
-
-    setLikedSongs(updatedLikedSongs);
-    localStorage.setItem('likedSongs', JSON.stringify(updatedLikedSongs));
-    await updateUserDataOnIPFS('likedSongs', updatedLikedSongs);
-  };
-
-  const updateUserDataOnIPFS = async (key, updatedData) => {
-    try {
-      let usersData = [];
-      const usersIpfsHash = localStorage.getItem('usersIpfsHash');
-      if (usersIpfsHash) {
-        const existingUsersResponse = await axios.get(`https://gateway.pinata.cloud/ipfs/${usersIpfsHash}`);
-        usersData = existingUsersResponse.data.users || [];
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      if (userId) {  // Fetch recommendations only if userId is available
+        try {
+          setLoading(true); // Start loading
+          const response = await axios.post('http://127.0.0.1:5000/api/recommend', {
+            userId: userId,  
+            songsData: songsData,
+            userData: userData
+          });
+          console.log(response.data);
+          setRecommendedSongs(response.data.recommendedSongs);
+        } catch (error) {
+          console.error('Error fetching recommendations:', error);
+        } finally {
+          setLoading(false); // End loading
+        }
       }
+    };  
 
-      const userIndex = usersData.findIndex(user => user.userId === currentAccount);
-      if (userIndex !== -1) {
-        usersData[userIndex][key] = updatedData;
-      } else {
-        const newUser = { userId: currentAccount, [key]: updatedData };
-        usersData.push(newUser);
-      }
+    fetchRecommendations(); 
+  }, [userId, songsData, userData]); // Fetch recommendations when userId, songsData, or userData changes
 
-      const response = await axios.post(`https://api.pinata.cloud/pinning/pinJSONToIPFS`, { users: usersData }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'pinata_api_key': process.env.REACT_APP_PINATA_API_KEY,
-          'pinata_secret_api_key': process.env.REACT_APP_PINATA_SECRET_API_KEY,
-        },
-      });
-
-      localStorage.setItem('usersIpfsHash', response.data.IpfsHash);
-    } catch (error) {
-      console.error('Error updating user data on IPFS:', error);
-    }
-  };
-
-  return (
-    <div className="foryou-container">
-      <h1>Recommended For You</h1>
-      {recommendedSongs.length === 0 ? (
-        <p>No songs found based on your preferences.</p>
+  return ( 
+    <div className="foryou-container">  
+      <h2>Recommended Songs For You</h2>
+      {loading ? ( // Show spinner if loading
+        <LoadingSpinner />
       ) : (
-        <div className="songs-list">
-          {recommendedSongs.map((song) => (
-            <div key={song.id} className="song-card">
-              <img src={song.thumbnail} alt={song.songName} />
-              <h3>{song.songName}</h3>
-              <p>{song.artistName}</p>
-              <button onClick={() => handlePlaySong(song)}>Play</button>
-              <button onClick={() => handleLikeSong(song)}>
-                {Array.isArray(likedSongs) && likedSongs.includes(song.id) ? 'Unlike' : 'Like'}
-              </button>
-            </div>
+        <ul className="songs-list">
+          {recommendedSongs.map(song => (
+            <li className="song-card" key={song.id}>
+              <img src={song.thumbnail} alt={song.songName} className="song-thumbnail" />
+              <p className="song-title">{song.songName} by {song.artistName}</p>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
-
-        <div>
-        <h2>Now Playing..</h2>
-        {currentSong && <MusicPlayer song={currentSong} />}
-      </div>
     </div>
   );
 };
-
-export default ForYou;
+  
+export default Recommendation;
