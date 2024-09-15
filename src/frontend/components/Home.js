@@ -220,7 +220,8 @@ useEffect(() => {
       userId: currentAccount,
       preferences: getStoredPreferences(), // Include other preferences if needed
       songsLiked: updatedLikedSongs[currentAccount] || [],
-     
+      songsStreamed: streamedSongsByAccount[currentAccount] || []
+      
     };
 
     // Update user data on IPFS
