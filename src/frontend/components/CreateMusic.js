@@ -11,7 +11,7 @@ const Create = () => {
   const [songName, setSongName] = useState('');
   const [artistName, setArtistName] = useState('');
   const [genre, setGenre] = useState(''); // New state for genre
-  const [songs, setSongs] = useState([]);
+  const [songs, setSongs] = useState([]); // Initialize as an empty array
   const [pinataLink, setPinataLink] = useState('');
   const [currentAccount, setCurrentAccount] = useState('');
   const [uploading, setUploading] = useState(false); // State to track uploading state
@@ -44,8 +44,10 @@ const Create = () => {
       const audioIpfsHash = await uploadFileToPinata(audio);
 
       // Create new song object
+      const lastSongId = songs && songs.length > 0 ? songs[songs.length - 1].id : 0;
+
       const newSong = {
-        id: songs.length === 0 ? 1 : songs[songs.length - 1].id + 1,
+        id: lastSongId + 1,
         thumbnail: `https://gateway.pinata.cloud/ipfs/${thumbnailIpfsHash}`,
         audio: `https://gateway.pinata.cloud/ipfs/${audioIpfsHash}`,
         songName,
@@ -59,7 +61,7 @@ const Create = () => {
       };
 
       // Update songs state with new song
-      const updatedSongs = [...songs, newSong];
+      const updatedSongs = [...songs, newSong];  // This will always be an array
       setSongs(updatedSongs);
 
       // Upload updated JSON to Pinata
@@ -125,12 +127,15 @@ const Create = () => {
     console.log('Existing IPFS hash from local storage:', existingIpfsHash);
     try {
       const response = await axios.get(`https://gateway.pinata.cloud/ipfs/${existingIpfsHash}`);
-      if (response.data) {
+      if (response.data && Array.isArray(response.data)) {  // Ensure response data is an array
         setSongs(response.data);
         setPinataLink(`https://gateway.pinata.cloud/ipfs/${existingIpfsHash}`);
+      } else {
+        setSongs([]);  // If no songs are present, initialize as empty array
       }
     } catch (error) {
       console.error('Error fetching existing data:', error);
+      setSongs([]);  // On error, initialize as empty array
     }
   };
 

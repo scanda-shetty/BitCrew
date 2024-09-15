@@ -4,8 +4,10 @@ import MusicPlayer from './MusicPlayer';
 import { useMusicPlayer } from './MusicPlayerContext';
 import './Home.css';
 
+
 const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
 const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
+
 
 function Home() {
   const [songs, setSongs] = useState([]);
@@ -14,6 +16,23 @@ function Home() {
   const [currentAccount, setCurrentAccount] = useState('');
   const [streamedSongsByAccount, setStreamedSongsByAccount] = useState({});
 
+// // Load liked songs and streamed songs from localStorage
+useEffect(() => {
+  const getLikedSongs = () => {
+    const storedLikedSongs = localStorage.getItem('likedSongs');
+    return storedLikedSongs ? JSON.parse(storedLikedSongs) : {};
+  };
+
+  const getStreamedSongs = () => {
+    const storedStreamedSongs = localStorage.getItem('streamedSongs');
+    return storedStreamedSongs ? JSON.parse(storedStreamedSongs) : {};
+  };
+
+  setLikedSongsByAccount(getLikedSongs());
+  setStreamedSongsByAccount(getStreamedSongs());
+
+
+}, []);
 
   useEffect(() => {
     async function fetchAccount() {
@@ -110,7 +129,8 @@ function Home() {
     setCurrentSong(song);
   };
   const updateStreamedSongs = async (song) => {
-    const updatedStreamedSongs = { ...streamedSongsByAccount };
+    const existingStreamedSongs = JSON.parse(localStorage.getItem('streamedSongs')) || {};
+    const updatedStreamedSongs = { ...existingStreamedSongs };
   
     if (!updatedStreamedSongs[currentAccount]) {
       updatedStreamedSongs[currentAccount] = [];
@@ -267,8 +287,9 @@ function Home() {
       const resetSongs = songs.map(song => ({
         ...song,
         likesCount: 0,
+        listenCount:0
       }));
-
+      console.log("resetSongs",resetSongs);
       setSongs(resetSongs);
       await updateLikesOnIPFS(resetSongs);
     } catch (error) {
