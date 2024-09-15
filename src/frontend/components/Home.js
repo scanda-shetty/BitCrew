@@ -110,22 +110,6 @@ useEffect(() => {
   };
 
   const playSong = async (song) => {
-    try {
-      const updatedSongs = songs.map(s => {
-        if (s.id === song.id) {
-          const newListenCount = s.listenCount + 1;
-          updateListenCountInStorage(song.id, newListenCount);
-          return { ...s, listenCount: newListenCount };
-        }
-        return s;
-      });
-      setSongs(updatedSongs);
-      await updateListenCountOnIPFS(song.id, song.listenCount + 1);
-
-      updateStreamedSongs(song);
-    } catch (error) {
-      console.error("Error updating listen count:", error);
-    }
     setCurrentSong(song);
   };
   const updateStreamedSongs = async (song) => {
@@ -297,6 +281,16 @@ useEffect(() => {
     }
   };
 
+  const handleListen = async (songId) => {
+    const song = songs.find(s => s.id === songId);
+
+    if (song) {
+      const newListenCount = (song.listenCount || 0) + 1;
+      await updateListenCountOnIPFS(songId, newListenCount);
+      await updateStreamedSongs(song);
+    }
+  };
+
  // Example of how to manage user data with multiple users in a structured way
 
 const updateUserDataOnIPFS = async (updatedUserData) => {
@@ -400,7 +394,7 @@ const updateUserDataOnIPFS = async (updatedUserData) => {
       <br />
       <div>
         <h2>Now Playing..</h2>
-        {currentSong && <MusicPlayer song={currentSong} />}
+        {currentSong && <MusicPlayer song={currentSong} onListen={handleListen} />}
       </div>
     </div>
   );
