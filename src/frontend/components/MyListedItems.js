@@ -74,15 +74,16 @@ export default function MyListedItems({ marketplace, nft, account }) {
     try {
       const itemCount = await marketplace.itemCount();
       let _soldNFTs = [];
-
+  
       for (let indx = 1; indx <= itemCount; indx++) {
         const i = await marketplace.items(indx);
-        if (i.buyer.toLowerCase() === account.toLowerCase()) {
+        console.log("Item:", i);
+        if (i.buyer && account && i.buyer.toLowerCase() === account.toLowerCase()) {
           const uri = await nft.tokenURI(i.tokenId);
           const response = await fetch(uri);
           const metadata = await response.json();
           const totalPrice = await marketplace.getTotalPrice(i.itemId);
-
+  
           let nftItem = {
             totalPrice,
             price: i.price,
@@ -92,7 +93,7 @@ export default function MyListedItems({ marketplace, nft, account }) {
             image: metadata.image,
             artist: metadata.artistName
           };
-
+  
           _soldNFTs.push(nftItem);
         }
       }
@@ -102,7 +103,7 @@ export default function MyListedItems({ marketplace, nft, account }) {
     }
     setLoading(false);
   };
-
+  
   useEffect(() => {
     loadListedItems();
     fetchSongs();

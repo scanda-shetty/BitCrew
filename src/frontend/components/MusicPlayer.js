@@ -3,37 +3,59 @@ import './MusicPlayer.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 
-const MusicPlayer = ({ song }) => {
+const MusicPlayer = ({ song, onListen }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const audioRef = useRef(new Audio(song.audio));
-  
-  useEffect(() => {
-    audioRef.current.src = song.audio;
-    audioRef.current.play();
-    setIsPlaying(true);
+  const cumulativeListenTimeRef = useRef(0); // Track cumulative listen time
+  const lastUpdateTimeRef = useRef(0); // Keep track of the last update time
+  const hasListenedEnoughRef = useRef(false); // Track if the 50% listen mark has been reached
 
-    audioRef.current.onloadedmetadata = () => {
-      setDuration(audioRef.current.duration);
+  useEffect(() => {
+    const audio = audioRef.current;
+    audio.src = song.audio;
+
+    audio.onloadedmetadata = () => {
+      setDuration(audio.duration);
     };
 
     return () => {
-      audioRef.current.pause();
+      audio.pause();
     };
   }, [song]);
 
   useEffect(() => {
     const audio = audioRef.current;
-    const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+
+      if (isPlaying && !hasListenedEnoughRef.current) {
+        const elapsedTime = audio.currentTime - lastUpdateTimeRef.current;
+
+        // Only accumulate if user didn't skip
+        if (elapsedTime > 0) {
+          cumulativeListenTimeRef.current += elapsedTime;
+        }
+
+        lastUpdateTimeRef.current = audio.currentTime;
+
+        // Check if cumulative listen time exceeds 50% of the song duration
+        if (cumulativeListenTimeRef.current >= duration * 0.5 && !hasListenedEnoughRef.current) {
+          onListen(song.id);
+          hasListenedEnoughRef.current = true; // Prevent further increments
+        }
+      }
+    };
 
     audio.addEventListener('timeupdate', handleTimeUpdate);
 
     return () => {
       audio.removeEventListener('timeupdate', handleTimeUpdate);
     };
-  }, []);
+  }, [isPlaying, duration, onListen, song.id]);
 
   const togglePlayPause = () => {
     const audio = audioRef.current;
@@ -41,6 +63,7 @@ const MusicPlayer = ({ song }) => {
       audio.pause();
     } else {
       audio.play();
+      lastUpdateTimeRef.current = audio.currentTime; // Set the reference for the time tracking
     }
     setIsPlaying(!isPlaying);
   };
@@ -48,6 +71,9 @@ const MusicPlayer = ({ song }) => {
   const handleSeek = (e) => {
     const audio = audioRef.current;
     audio.currentTime = e.target.value;
+
+    // Reset the last update time when seeking, so we don't count skipped parts
+    lastUpdateTimeRef.current = audio.currentTime;
     setCurrentTime(audio.currentTime);
   };
 

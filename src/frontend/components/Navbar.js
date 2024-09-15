@@ -1,6 +1,6 @@
-import {Link} from "react-router-dom";
-import { Navbar, Nav, Button, Container } from 'react-bootstrap'
-import mar from './s.png'
+import { Link } from "react-router-dom";
+import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import mar from './s.png';
 
 const Navigation = ({ web3Handler, account }) => {
     return (
@@ -15,12 +15,14 @@ const Navigation = ({ web3Handler, account }) => {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/about">About Swar</Nav.Link>
+                        <Nav.Link as={Link} to="/forYou">ForYou</Nav.Link>
                         <Nav.Link as={Link} to="/create">Share Your Music</Nav.Link>
                         <Nav.Link as={Link} to="/NFT">Browse NFTs</Nav.Link> 
                         <Nav.Link as={Link} to="/my-listed-items">My Items</Nav.Link>
                         <Nav.Link as={Link} to="/my-purchases">My Purchases</Nav.Link>
                         <Nav.Link as={Link} to="/MyRoyalty">Royalty Earned</Nav.Link>
                         <Nav.Link as={Link} to="/Notifications">Notifications</Nav.Link>
+                       
                     </Nav>
                     <Nav>
                         {account ? (
@@ -29,12 +31,9 @@ const Navigation = ({ web3Handler, account }) => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="button nav-button btn-sm mx-4">
-                                <Button variant="outline-ligh
-                                
-                                t">
+                                <Button variant="outline-light">
                                     {account.slice(0, 5) + '...' + account.slice(38, 42)}
                                 </Button>
-
                             </Nav.Link>
                         ) : (
                             <Button onClick={web3Handler} variant="outline-light">Connect Wallet</Button>
@@ -43,8 +42,7 @@ const Navigation = ({ web3Handler, account }) => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-    )
-
+    );
 }
 
 export default Navigation;
