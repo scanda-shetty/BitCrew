@@ -5,6 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import normalize
 import cohere
 import numpy as np
+from sklearn.metrics import precision_score, recall_score
 
 app = Flask(__name__)
 CORS(app)
@@ -47,6 +48,46 @@ def get_combined_user_profile(user_data):
     print("\nCombined user profile:")
     print(combined_profile)
     return combined_profile
+
+# Function to get ground truth from user's liked and streamed songs
+def get_user_liked_and_streamed_songs(user_data):
+    liked_songs_ids = {song['id'] for song in user_data.get("songsLiked", [])}
+    streamed_songs_ids = {song['id'] for song in user_data.get("songsStreamed", [])}
+    
+    # Combine liked and streamed songs to form the ground truth
+    ground_truth_ids = liked_songs_ids.union(streamed_songs_ids)
+    return ground_truth_ids
+
+# Function to get recommended song IDs
+def get_recommended_song_ids(recommended_songs):
+    return {song['id'] for song in recommended_songs}
+
+# Function to calculate precision, recall, and F1-score
+def calculate_accuracy(user_data, recommended_songs):
+    ground_truth_ids = get_user_liked_and_streamed_songs(user_data)
+    recommended_song_ids = get_recommended_song_ids(recommended_songs)
+
+    if not ground_truth_ids:
+        return {"precision": None, "recall": None, "f1": None, "message": "No ground truth available for this user."}
+    
+    # Convert to binary form: 1 if song was liked/streamed, 0 if not
+    y_true = [1 if song_id in ground_truth_ids else 0 for song_id in recommended_song_ids]
+    y_pred = [1] * len(recommended_song_ids)  # All recommended songs are treated as 1
+
+    # Calculate precision and recall
+    precision = precision_score(y_true, y_pred)
+    recall = recall_score(y_true, y_pred)
+    f1 = 2 * (precision * recall) / (precision + recall) if precision + recall > 0 else 0
+    correct_predictions = sum([1 for true, pred in zip(y_true, y_pred) if true == pred])
+    accuracy = correct_predictions / len(y_true)
+
+    return {
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        'accuracy': accuracy
+    }
+
 
 @app.route('/api/recommend', methods=['POST'])
 def recommend_songs():
@@ -129,8 +170,13 @@ def recommend_songs():
     recommended_songs = [songs_data[i] for i in recommended_indices]
     print("\nRecommended songs:")
     print(recommended_songs)
+    
+     # Calculate accuracy metrics (precision, recall, F1-score)
+    accuracy_metrics = calculate_accuracy(current_user_data, recommended_songs)
+    print("\nAccuracy metrics:")
+    print(accuracy_metrics)
 
-    return jsonify({"recommendedSongs": recommended_songs})
+    return jsonify({"recommendedSongs": recommended_songs,"accuracyMetrics": accuracy_metrics})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
