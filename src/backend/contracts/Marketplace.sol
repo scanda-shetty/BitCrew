@@ -3,6 +3,7 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./NFT.sol";  // Import your NFT contract
 
 contract Marketplace is ReentrancyGuard {
     // Variables
@@ -79,6 +80,10 @@ contract Marketplace is ReentrancyGuard {
         require(_itemId > 0 && _itemId <= itemCount, "item doesn't exist");
         require(msg.value >= _totalPrice, "not enough ether to cover item price and market fee");
         require(!item.sold, "item already sold");
+        // Check expiration using the NFT contract
+        require(block.timestamp <= NFT(address(item.nft)).expirationTime(item.tokenId), "NFT has expired");
+
+
         item.seller.transfer(item.price);
         feeAccount.transfer(_totalPrice - item.price);
         item.sold = true;
@@ -99,6 +104,10 @@ contract Marketplace is ReentrancyGuard {
 
     // Function to increment the listen count for an NFT
     function playNFT(uint _itemId) external {
+        Item storage item = items[_itemId];
+        
+        // Check expiration using the NFT contract
+        require(block.timestamp <= NFT(address(item.nft)).expirationTime(item.tokenId), "NFT has expired");
         listenCount[_itemId]++;
         emit Played(_itemId, msg.sender);
     }

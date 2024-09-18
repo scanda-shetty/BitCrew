@@ -3,10 +3,14 @@ import axios from 'axios';
 import MusicPlayer from './MusicPlayer';
 import { useMusicPlayer } from './MusicPlayerContext';
 import './Home.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
 const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
+
+
+
 
 
 function Home() {
@@ -15,8 +19,21 @@ function Home() {
   const { currentSong, setCurrentSong } = useMusicPlayer();
   const [currentAccount, setCurrentAccount] = useState('');
   const [streamedSongsByAccount, setStreamedSongsByAccount] = useState({});
-
+  const [groupedByLanguage, setGroupedByLanguage] = useState({});
+  const [groupedByGenre, setGroupedByGenre] = useState({});
+  const [groupedByArtist, setGroupedByArtist] = useState({});
+  const [trendingSongs, setTrendingSongs] = useState([]);
+  const ITEMS_PER_PAGE = 7; // Number of songs to show per page
 // // Load liked songs and streamed songs from localStorage
+
+const [currentPages, setCurrentPages] = useState({
+  trending: 0,
+  language: {},
+  genre: {},
+  artist: {},
+});
+
+
 useEffect(() => {
   const getLikedSongs = () => {
     const storedLikedSongs = localStorage.getItem('likedSongs');
@@ -86,6 +103,8 @@ useEffect(() => {
       console.log('Fetched songs metadata:', metadata);
 
       setSongs(metadata);
+      groupSongs(metadata);
+      setTrendingSongs(getTopTrendingSongs(metadata));
       await updateLikesOnIPFS(metadata);
     } catch (error) {
       console.error("Error fetching songs from Pinata:", error);
@@ -366,39 +385,236 @@ const updateUserDataOnIPFS = async (updatedUserData) => {
   }
 };
 
+
+const getTopTrendingSongs = (songs) => {
+  return songs
+    .sort((a, b) => (b.likesCount + b.listenCount) - (a.likesCount + a.listenCount))
+    .slice(0, 10);
+};
+
+const groupSongs = (songs) => {
+  const languageGroups = {};
+  const genreGroups = {};
+  const artistGroups = {};
+
+  songs.forEach(song => {
+    if (!languageGroups[song.songLanguage]) {
+      languageGroups[song.songLanguage] = [];
+    }
+    languageGroups[song.songLanguage].push(song);
+
+    if (!genreGroups[song.genre]) {
+      genreGroups[song.genre] = [];
+    }
+    genreGroups[song.genre].push(song);
+
+    if (!artistGroups[song.artistName]) {
+      artistGroups[song.artistName] = [];
+    }
+    artistGroups[song.artistName].push(song);
+  });
+
+  setGroupedByLanguage(languageGroups);
+  setGroupedByGenre(genreGroups);
+  setGroupedByArtist(artistGroups);
+};
+
+useEffect(() => {
+  // Recompute derived data whenever songs change
+  setTrendingSongs(getTopTrendingSongs(songs));
+  groupSongs(songs)
   
+}, [songs]);
+
+const handlePageChange = (section, direction) => {
+  setCurrentPages(prev => {
+    const newPages = { ...prev };
+    const totalSongs = section === 'trending' ? trendingSongs.length : 
+                       groupedByLanguage[section]?.length || 
+                       groupedByGenre[section]?.length || 
+                       groupedByArtist[section]?.length || 0;
+    const currentPage = newPages[section] || 0;
+
+    if (direction === 'next') {
+      const nextPage = currentPage + 1;
+      if (nextPage * ITEMS_PER_PAGE < totalSongs || 
+          (nextPage * ITEMS_PER_PAGE >= totalSongs && totalSongs > ITEMS_PER_PAGE)) {
+        newPages[section] = nextPage;
+      }
+    } else {
+      newPages[section] = currentPage > 0 ? currentPage - 1 : 0;
+    }
+
+    return newPages;
+  });
+};
+
+
+
+
+// Function to get a random title format
+const getRandomTitle = (type, name) => {
+
+  const titleFormats = {
+    artist: [
+      'Top Picks by {name}',
+      'Highlights of {name}',
+      'Best of {name}',
+      'Featured Tracks by {name}',
+      'Spotlight on {name}',
+    ],
+    language: [
+      'Top Songs in {name}',
+      'Best Tracks in {name}',
+      'Highlights of {name}',
+      'Popular Songs in {name}',
+      'Featured Picks in {name}',
+    ],
+    collaboration: [
+      `Collaborative Hits`,
+      `Featuring ${name}`,
+      `Best Collaborations`,
+      `Top Duets with ${name}`,
+    ],
+  };
+
+  const formats = titleFormats[type] || [];
+  if (formats.length === 0) {
+    // Return a default title if no formats are available
+    return ` ${name}`;
+  }
+  const randomFormat = formats[Math.floor(Math.random() * formats.length)];
+  return randomFormat.replace('{name}', name);
+};
+
+// Helper function to get unique songs
+const getUniqueSongs = (songs) => {
+  const seen = new Set();
+  return songs.filter(song => {
+    const isDuplicate = seen.has(song.id);
+    seen.add(song.id);
+    return !isDuplicate;
+  });
+};
+
+
+
+const renderSection = (type, name, songs, sectionKey) => {
+  const title = getRandomTitle(type, name);
+  const currentPage = currentPages[sectionKey] || 0;
+  const startIndex = currentPage * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const uniqueSongs = getUniqueSongs(songs);
+  // Calculate the items to display
+  const paginatedSongs = uniqueSongs.slice(startIndex, endIndex);
+  if (paginatedSongs.length ==0) return null;
+  // If there are fewer items left, include them with previous page items
+  if (paginatedSongs.length < ITEMS_PER_PAGE && startIndex > 0) {
+    const previousPageStart = Math.max(startIndex - ITEMS_PER_PAGE, 0);
+    const previousPageItems = songs.slice(previousPageStart, startIndex);
+    paginatedSongs.unshift(...previousPageItems.slice(0, ITEMS_PER_PAGE - paginatedSongs.length));
+  }
+
   return (
-    <div className="App">
-      <h1>Welcome to Swar</h1>
-      <h2>Trending now,</h2>
-    
-      <div className="song-list">
-        {songs.map((song, index) => (
-          <div className="song-card" key={index}>
-            <img src={song.thumbnail} alt="Thumbnail" className="song-thumbnail" />
-            <div className="song-info">
-              <p className="song-title">{song.songName}</p>
-              <p className="song-artist">{song.artistName}</p>
-              <p className="song-listen-count">Listens: {song.listenCount}</p>
-              <p className="song-likes-count">Likes: {song.likesCount}</p>
+    <div className={`section ${sectionKey}`}>
+      <h2 className="headtitle">{title}</h2>
+      <div className="pagination-header">
+        <i
+          className={`icon fas fa-chevron-left ${currentPage === 0 ? 'disabled' : ''}`}
+          onClick={() => handlePageChange(sectionKey, 'prev')}
+        ></i>
+        <div className="playlist">
+          {paginatedSongs.map((song) => (
+            <div className="playlist-item" key={song.id}>
+              <img src={song.thumbnail} alt="Thumbnail" className="song-thumbnail" />
+              <div className="song-info">
+                <p className="song-title">{song.songName}</p>
+                <p className="song-artist">{song.artistName}</p>
+                <p className="song-listen-count">Listens: {song.listenCount}</p>
+                <p className="song-likes-count">Likes: {song.likesCount}</p>
+              </div>
+              <div className="button-group">
+                <button className="like-button" onClick={() => likeSong(song.id)}>
+                  <i className={likedSongsByAccount[currentAccount] && likedSongsByAccount[currentAccount].find(s => s.id === song.id) ? 'fas fa-heart' : 'far fa-heart'}></i>
+                </button>
+                <button className="play-button" onClick={() => { playSong(song); updateStreamedSongs(song); }}>
+                  <i className="fas fa-play"></i>
+                </button>
+              </div>
             </div>
-            <button onClick={() => likeSong(song.id)}>
-              {likedSongsByAccount[currentAccount] && likedSongsByAccount[currentAccount].find(s => s.id === song.id) ? 'Unlike' : 'Like'}
-            </button>
-            <button onClick={() => playSong(song)}>Play</button>
-          </div>
-        ))}
-      </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <div>
-        <h2>Now Playing..</h2>
-        {currentSong && <MusicPlayer song={currentSong} onListen={handleListen} />}
+          ))}
+        </div>
+        <i
+          className={`icon fas fa-chevron-right ${((currentPage + 1) * ITEMS_PER_PAGE >= songs.length) ? 'disabled' : ''}`}
+          onClick={() => handlePageChange(sectionKey, 'next')}
+        ></i>
       </div>
     </div>
   );
+};
+
+
+
+// Helper function to check if a song is collaborative
+const isCollaborative = (song) => song.artistName.includes(',');
+
+// Filter and deduplicate collaborative songs
+const getCollaborativeSongs = (songs) => {
+  const seen = new Set();
+  return songs.filter(song => {
+    const isDuplicate = seen.has(song.id);
+    seen.add(song.id);
+    return isCollaborative(song) && !isDuplicate;
+  });
+};
+
+// Get non-collaborative songs
+const getNonCollaborativeSongs = (songs) => {
+  const seen = new Set();
+  return songs.filter(song => {
+    const isDuplicate = seen.has(song.id);
+    seen.add(song.id);
+    return !isCollaborative(song) && !isDuplicate;
+  });
+};
+
+// Prepare non-collaborative and collaborative songs
+const nonCollaborativeTrendingSongs = getNonCollaborativeSongs(trendingSongs);
+const nonCollaborativeByLanguage = Object.fromEntries(
+  Object.entries(groupedByLanguage).map(([lang, songs]) => [lang, getNonCollaborativeSongs(songs)])
+);
+const nonCollaborativeByArtist = Object.fromEntries(
+  Object.entries(groupedByArtist).map(([artist, songs]) => [artist, getNonCollaborativeSongs(songs)])
+);
+const collaborativeSongs = [
+  ...getCollaborativeSongs(trendingSongs),
+  ...Object.values(groupedByLanguage).flatMap(getCollaborativeSongs),
+  ...Object.values(groupedByArtist).flatMap(getCollaborativeSongs),
+];
+
+return (
+  <div className="App">
+    <h1>Welcome to Swar</h1>
+    <div className="home-container">
+      {renderSection('trending', 'Trending', trendingSongs, 'trending')}
+      {Object.keys(groupedByLanguage).map((language) =>
+        <div key={language}>{renderSection('language', language, groupedByLanguage[language], `language-${language.toLowerCase()}`)}</div>
+      )}
+    
+    {Object.keys(nonCollaborativeByArtist).map((artist) =>
+        <div key={artist}>{renderSection('artist', artist, nonCollaborativeByArtist[artist], `Best Of ${artist}`)}</div>
+      )}
+      {collaborativeSongs.length > 0 && renderSection('collaboration', 'collaboration', collaborativeSongs, 'Collaborations')}
+
+    </div>
+    <br />
+    <br />
+    <div className="now-playing">
+      <h2>Now Playing..</h2>
+      {currentSong && <MusicPlayer song={currentSong} />}
+    </div>
+  </div>
+);
 }
 
 export default Home;

@@ -11,6 +11,8 @@ const Create = ({ marketplace, nft, account, songs }) => {
   const [name, setName] = useState("");
   const [artist, setArtist] = useState("");
   const [desc, setDescription] = useState("");
+  const [duration, setDuration] = useState(""); // New state for duration
+  const [durationType, setDurationType] = useState("days"); // State for duration type (days/hours/minutes)
   const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
@@ -25,7 +27,7 @@ const Create = ({ marketplace, nft, account, songs }) => {
 
   const sendFilesToIPFS = async (e) => {
     e.preventDefault();
-    if (!fileImg || !name || !artist || !desc || !price) {
+    if (!fileImg || !name || !artist || !desc || !price || !duration) {
       setAlertMessage("Please fill all fields!");
       return;
     }
@@ -112,6 +114,19 @@ const Create = ({ marketplace, nft, account, songs }) => {
     }
   };
 
+  // Helper function to calculate expiration time based on selected unit
+  const calculateExpirationTime = (duration, type) => {
+    let expirationInSeconds;
+    if (type === "days") {
+      expirationInSeconds = duration * 24 * 60 * 60; // Convert days to seconds
+    } else if (type === "hours") {
+      expirationInSeconds = duration * 60 * 60; // Convert hours to seconds
+    } else if (type === "minutes") {
+      expirationInSeconds = duration * 60; // Convert minutes to seconds
+    }
+    return expirationInSeconds;
+  };
+
   const mintThenList = async (uri, selectedSong) => {
     try {
       // Validate ownership of the selected song
@@ -129,11 +144,14 @@ const Create = ({ marketplace, nft, account, songs }) => {
       const id = await nft.tokenCount();
       await (await nft.setApprovalForAll(marketplace.address, true)).wait();
       const listingPrice = ethers.utils.parseEther(price.toString());
-      await (await marketplace.makeItem(nft.address, id, listingPrice)).wait();
+      const expirationTime = calculateExpirationTime(duration, durationType);
+      await (await marketplace.makeItem(nft.address, id, listingPrice,expirationTime)).wait();
     } catch (error) {
       console.error("Mint then List: ", error);
     }
   };
+
+
 
   return (
     <div className="create-container">
@@ -146,6 +164,18 @@ const Create = ({ marketplace, nft, account, songs }) => {
         <Form.Control onChange={(e) => setName(e.target.value)} type="text" placeholder="Song ID" />
         <Form.Control onChange={(e) => setArtist(e.target.value)} type="text" placeholder="Artist Name" />
         <Form.Control onChange={(e) => setDescription(e.target.value)} type="text" placeholder="Song Name" />
+{/* Duration input */}
+
+<Form.Select onChange={(e) => setDurationType(e.target.value)}>
+          <option value="days">Days</option>
+          <option value="hours">Hours</option>
+          <option value="minutes">Minutes</option>
+        </Form.Select>
+
+        <Form.Control onChange={(e) => setDuration(e.target.value)} type="number" placeholder="Duration" />
+        
+        {/* Duration type (days, hours, or minutes) */}
+        
         <Form.Control onChange={(e) => setPrice(e.target.value)} type="number" placeholder="Price in ETH" />
         {alertMessage && <Alert variant="danger" onClose={() => setAlertMessage(null)} dismissible>{alertMessage}</Alert>}
         <Button onClick={sendFilesToIPFS} variant="primary" disabled={loading}>

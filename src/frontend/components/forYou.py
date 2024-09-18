@@ -163,7 +163,7 @@ def recommend_songs():
     print(combined_similarities)
     
     # Get all recommended songs based on combined similarity score
-    recommended_indices = combined_similarities.argsort()[-5:][::-1]  # Top 5 recommended songs
+    recommended_indices = combined_similarities.argsort()[-10:][::-1]  # Top 5 recommended songs
     print("\nRecommended indices:")
     print(recommended_indices)
     

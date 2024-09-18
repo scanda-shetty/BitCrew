@@ -72,6 +72,14 @@ const Create = () => {
       localStorage.setItem('songsIpfsHash', updatedJsonIpfsHash);
 
       alert('Song uploaded successfully!');
+
+
+      if (!isFree) {
+        // Redirect to NFT creation page with the song ID
+        window.location.href = `/create-nft/${newSong.id}`;
+      }
+
+        
     } catch (error) {
       console.error('Error uploading song:', error);
       alert('Error uploading song');

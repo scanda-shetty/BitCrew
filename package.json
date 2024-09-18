@@ -8,8 +8,8 @@
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@nomiclabs/hardhat-ethers": "^2.0.5",
-    "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
     "@openzeppelin/contracts": "^4.9.6",
     "@pinata/sdk": "^2.1.0",
     "@testing-library/jest-dom": "^5.16.2",
@@ -26,9 +26,8 @@
     "cors": "^2.8.5",
     "crypto-browserify": "^3.12.0",
     "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.5.4",
+    "ethers": "^5.7.2",
     "express": "^4.21.0",
-    "hardhat": "^2.8.4",
     "http-proxy-middleware": "^3.0.0",
     "https-browserify": "^1.0.0",
     "ipfs-http-client": "^56.0.1",
@@ -71,6 +70,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.16.11"
+    "@babel/preset-env": "^7.16.11",
+    "hardhat": "^2.22.10"
   }
 }

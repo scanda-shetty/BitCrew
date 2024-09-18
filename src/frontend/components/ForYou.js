@@ -322,40 +322,43 @@ const Recommendation = () => {
 
   return (
     <div className="recommendation-container">
-      <h2>Recommended Songs For You</h2>
+      <h2 className="section-title">Recommended Songs For You</h2>
+      
       {loading ? (
         <LoadingSpinner />  // Display loading spinner while fetching data
       ) : (
-        <ul className="songs-list">
-  {recommendedSongs
-    .filter((song, index, self) => self.findIndex(s => s.id === song.id) === index) // Ensures unique song ids
-    .map(song => (
-      <li className="song-card" key={song.id}>
-        <img src={song.thumbnail} alt={song.songName} className="song-thumbnail" />
-        <div className="song-info">
-          <p className="song-title">{song.songName}</p>
-          <p className="song-artist">{song.artistName}</p>
-          <p className="song-listen-count">Listens: {song.listenCount}</p>
-          <p className="song-likes-count">Likes: {song.likesCount}</p>
+        <div className="song-grid">  {/* Grid layout for songs */}
+          {recommendedSongs
+            .filter((song, index, self) => self.findIndex(s => s.id === song.id) === index)  // Ensure unique song IDs
+            .map(song => (
+              <div className="song-card" key={song.id}>
+                <img src={song.thumbnail} alt={song.songName} className="song-thumbnail" />
+                <div className="song-info">
+                  <p className="song-title">{song.songName}</p>
+                  <p className="song-artist">{song.artistName}</p>
+                  <p className='song-listen-count'>Listens:{song.listenCount}</p>
+                  <p className='song-listen-count'>Likes :{song.likesCount}</p>
+                </div>
+                <div className="action-buttons">
+                  <button onClick={() => toggleLikeSong(song.id)} className="like-button">
+                    <i className={likedSongs[userId]?.some(s => s.id === song.id) ? 'fas fa-heart' : 'far fa-heart'}></i>
+                  </button>
+                  <button onClick={() => playSong(song)} className="play-button">
+                    <i className="fas fa-play"></i>
+                  </button>
+                </div>
+              </div>
+            ))}
         </div>
-        <button onClick={() => toggleLikeSong(song.id)} className="like-button">
-          {likedSongs[userId]?.some(s => s.id === song.id) ? 'Unlike' : 'Like'}
-        </button>
-        <button onClick={() => playSong(song)}>Play</button>
-      </li>
-    ))
-  }
-</ul>
-
       )}
-
-<div>
-        <h2>Now Playing..</h2>
+  
+      <div className="now-playing">
+        <h2>Now Playing</h2>
         {currentSong && <MusicPlayer song={currentSong} />}
       </div>
-
     </div>
   );
+  
 };
 
 export default Recommendation;
