@@ -13,7 +13,7 @@ async function main() {
   const contract = new ethers.Contract(contractAddress, contractABI, deployer);
 
   // Fetch data from the contract
-  const songId = 1; // Replace with the ID of the song you want to check
+  const songId = 4; // Replace with the ID of the song you want to check
   const song = await contract.songs(songId);
 
   // Extract individual properties

@@ -1,4 +1,3 @@
-// Home.js
 import React, { useState, useEffect } from "react";
 import './Home.css';
 import axios from 'axios';
@@ -53,19 +52,15 @@ function Home({ account }) {
 
   const playSong = async (song) => {
     try {
-      // Set up ethers provider and signer
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
 
-      // Create contract instance
       const contract = new ethers.Contract(DynamicRoyaltiesAddress.address, DynamicRoyaltiesAbi.abi, signer);
 
-      // Call listen function on the smart contract
       const tx = await contract.listen(song.id);
       await tx.wait(); // Wait for the transaction to be mined
 
-      // Update listen count locally
       const updatedSongs = songs.map(s => {
         if (s.id === song.id) {
           const newListenCount = s.listenCount + 1;
@@ -76,7 +71,6 @@ function Home({ account }) {
       });
       setSongs(updatedSongs);
 
-      // Update listen count on IPFS
       await updateListenCountOnIPFS(song.id, song.listenCount + 1);
     } catch (error) {
       console.error("Error updating listen count:", error);
@@ -135,14 +129,12 @@ function Home({ account }) {
 
     const userData = userListenData[userId];
 
-    // Update artist listen count
     if (userData.artists[song.artistName]) {
       userData.artists[song.artistName] += 1;
     } else {
       userData.artists[song.artistName] = 1;
     }
 
-    // Update genre listen count
     if (userData.genres[song.genre]) {
       userData.genres[song.genre] += 1;
     } else {

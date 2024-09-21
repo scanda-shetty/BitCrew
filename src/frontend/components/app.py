@@ -308,6 +308,7 @@ def predict_streams():
     }).explode('artist(s)_name')
 
     # Predict the streams
+    input_data['artist_count'] = input_data['artist_count'] * 2
     predicted_streams = model.predict(input_data)
     
     # Sum predictions for multiple artists
