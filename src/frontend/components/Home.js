@@ -537,7 +537,7 @@ const renderSection = (type, name, songs, sectionKey) => {
                 <button className="like-button" onClick={() => likeSong(song.id)}>
                   <i className={likedSongsByAccount[currentAccount] && likedSongsByAccount[currentAccount].find(s => s.id === song.id) ? 'fas fa-heart' : 'far fa-heart'}></i>
                 </button>
-                <button className="play-button" onClick={() => { playSong(song); updateStreamedSongs(song); }}>
+                <button className="play-button" onClick={() => { playSong(song); }}>
                   <i className="fas fa-play"></i>
                 </button>
               </div>
@@ -611,7 +611,7 @@ return (
     <br />
     <div className="now-playing">
       <h2>Now Playing..</h2>
-      {currentSong && <MusicPlayer song={currentSong} />}
+      {currentSong && <MusicPlayer song={currentSong}  onListen={handleListen} />}
     </div>
   </div>
 );
