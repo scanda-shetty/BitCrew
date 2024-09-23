@@ -23,7 +23,7 @@ function Home() {
   const [groupedByGenre, setGroupedByGenre] = useState({});
   const [groupedByArtist, setGroupedByArtist] = useState({});
   const [trendingSongs, setTrendingSongs] = useState([]);
-  const ITEMS_PER_PAGE = 7; // Number of songs to show per page
+  const ITEMS_PER_PAGE = 10; // Number of songs to show per page
 // // Load liked songs and streamed songs from localStorage
 
 const [currentPages, setCurrentPages] = useState({
@@ -389,7 +389,7 @@ const updateUserDataOnIPFS = async (updatedUserData) => {
 const getTopTrendingSongs = (songs) => {
   return songs
     .sort((a, b) => (b.likesCount + b.listenCount) - (a.likesCount + a.listenCount))
-    .slice(0, 10);
+    .slice(0, 20);
 };
 
 const groupSongs = (songs) => {
@@ -429,12 +429,25 @@ useEffect(() => {
 const handlePageChange = (section, direction) => {
   setCurrentPages(prev => {
     const newPages = { ...prev };
-    const totalSongs = section === 'trending' ? trendingSongs.length : 
-                       groupedByLanguage[section]?.length || 
-                       groupedByGenre[section]?.length || 
-                       groupedByArtist[section]?.length || 0;
+    let totalSongs = 0;
+
+    // Explicitly check each section for songs
+    if (section === 'trending') {
+      totalSongs = trendingSongs.length;
+    } else if (groupedByLanguage[section]) {
+      totalSongs = groupedByLanguage[section].length;
+    } else if (groupedByGenre[section]) {
+      totalSongs = groupedByGenre[section].length;
+    } else if (groupedByArtist[section]) {
+      totalSongs = groupedByArtist[section].length;
+    } else {
+      console.error('Section not found:', section);
+      return prev; // Exit if section is not found
+    }
+
     const currentPage = newPages[section] || 0;
 
+    // Handle next page
     if (direction === 'next') {
       const nextPage = currentPage + 1;
       if (nextPage * ITEMS_PER_PAGE < totalSongs || 
@@ -442,12 +455,14 @@ const handlePageChange = (section, direction) => {
         newPages[section] = nextPage;
       }
     } else {
+      // Handle prev page
       newPages[section] = currentPage > 0 ? currentPage - 1 : 0;
     }
 
     return newPages;
   });
 };
+
 
 
 
@@ -598,11 +613,11 @@ return (
     <div className="home-container">
       {renderSection('trending', 'Trending', trendingSongs, 'trending')}
       {Object.keys(groupedByLanguage).map((language) =>
-        <div key={language}>{renderSection('language', language, groupedByLanguage[language], `language-${language.toLowerCase()}`)}</div>
+        <div key={language}>{renderSection('language', language, groupedByLanguage[language], language)}</div>
       )}
     
     {Object.keys(nonCollaborativeByArtist).map((artist) =>
-        <div key={artist}>{renderSection('artist', artist, nonCollaborativeByArtist[artist], `Best Of ${artist}`)}</div>
+        <div key={artist}>{renderSection('artist', artist, nonCollaborativeByArtist[artist], artist)}</div>
       )}
       {collaborativeSongs.length > 0 && renderSection('collaboration', 'collaboration', collaborativeSongs, 'Collaborations')}
 

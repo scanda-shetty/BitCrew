@@ -139,12 +139,12 @@ const Create = ({ marketplace, nft, account, songs }) => {
         setAlertMessage("The song ID in the URL does not match the selected song ID.");
         return;
       }
-
-      await (await nft.mint(uri)).wait();
+      const expirationTime = calculateExpirationTime(duration, durationType);
+      await (await nft.mint(uri,expirationTime)).wait();
       const id = await nft.tokenCount();
       await (await nft.setApprovalForAll(marketplace.address, true)).wait();
       const listingPrice = ethers.utils.parseEther(price.toString());
-      const expirationTime = calculateExpirationTime(duration, durationType);
+     
       await (await marketplace.makeItem(nft.address, id, listingPrice,expirationTime)).wait();
     } catch (error) {
       console.error("Mint then List: ", error);

@@ -72,5 +72,17 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
     "hardhat": "^2.22.10"
-  }
+  },
+  "description": "This repository is clone of nft_marketplace repository of dappuniversity. \r - Link of original repository is https://github.com/dappuniversity/nft_marketplace\r ## Technology Stack & Tools",
+  "main": "hardhat.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NAGAVENIGOWDA/BitCrew.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NAGAVENIGOWDA/BitCrew/issues"
+  },
+  "homepage": "/"
 }

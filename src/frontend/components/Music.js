@@ -16,6 +16,12 @@ const Main = ({ marketplace, nft, account }) => {
       const response = await fetch(uri);
       const metadata = await response.json();
       const totalPrice = await marketplace.getTotalPrice(item.itemId);
+
+      // Fetch the expiration time for the NFT
+      const expirationTime = await nft.expirationTime(item.tokenId);
+      const timeLeft = expirationTime > Math.floor(Date.now() / 1000) ? expirationTime - Math.floor(Date.now() / 1000) : 0;
+
+
       items.push({
         totalPrice,
         itemId: item.itemId,
@@ -24,7 +30,9 @@ const Main = ({ marketplace, nft, account }) => {
         description: metadata.description,
         image: metadata.image,
         audio: metadata.audio,
-        sold: item.sold
+        sold: item.sold,
+        expirationTime, // Store the expiration time
+        timeLeft, // Store the remaining time
       });
     }
     setLoading(false);
@@ -39,6 +47,14 @@ const Main = ({ marketplace, nft, account }) => {
   useEffect(() => {
     loadMarketplaceItems();
   }, []);
+// Function to format time left
+const formatTimeLeft = (timeInMinutes) => {
+  const days = Math.floor(timeInMinutes / 1440); // 1440 minutes in a day
+  const hours = Math.floor((timeInMinutes % 1440) / 60);
+  const minutes = timeInMinutes % 60;
+
+  return `${days} days ${hours} hours ${minutes} minutes`;
+};
 
   if (loading) return <div className="loading-container">Loading...</div>;
 
@@ -53,14 +69,21 @@ const Main = ({ marketplace, nft, account }) => {
                 <Card.Body style={{backgroundColor:"black"}}>
                   <Card.Title>{item.name}</Card.Title>
                   <Card.Text>{item.description}</Card.Text>
+                  <Card.Text>
+                    {item.timeLeft > 0 ? 
+                      `Time left to buy: ${formatTimeLeft(Math.floor(item.timeLeft / 60))}` : 
+                      "This NFT has expired"
+                    }
+                  </Card.Text>
                   {item.sold ? (
                     <Button variant="custom" style={{backgroundColor:"gray"}} disabled>
                       Sold
                     </Button>
                   ) : (
-                    <Button variant="custom" style={{backgroundColor:"green"}} onClick={() => buyMarketItem(item)}>
-                      Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
-                    </Button>
+                    <Button variant="custom" style={{ backgroundColor: "green" }} onClick={() => buyMarketItem(item)} disabled={item.timeLeft <= 0}>
+  Buy for {ethers.utils.formatEther(item.totalPrice)} ETH
+</Button>
+
                   )}
                 </Card.Body>
               </Card>

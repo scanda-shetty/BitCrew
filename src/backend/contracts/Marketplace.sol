@@ -21,6 +21,7 @@ contract Marketplace is ReentrancyGuard {
         uint price;
         address payable seller;
         bool sold;
+        uint expirationTime; 
     }
 
     // itemId -> Item
@@ -31,7 +32,8 @@ contract Marketplace is ReentrancyGuard {
         address indexed nft,
         uint tokenId,
         uint price,
-        address indexed seller
+        address indexed seller,
+        uint expirationTime 
     );
     event Bought(
         uint itemId,
@@ -49,7 +51,7 @@ contract Marketplace is ReentrancyGuard {
     }
 
     // Make item to offer on the marketplace
-    function makeItem(IERC721 _nft, uint _tokenId, uint _price) external nonReentrant {
+    function makeItem(IERC721 _nft, uint _tokenId, uint _price,uint _expirationTime) external nonReentrant {
         require(_price > 0, "Price must be greater than zero");
         // increment itemCount
         itemCount ++;
@@ -62,7 +64,8 @@ contract Marketplace is ReentrancyGuard {
             _tokenId,
             _price,
             payable(msg.sender),
-            false
+            false,
+            _expirationTime // Store expiration time
         );
         // emit Offered event
         emit Offered(
@@ -70,7 +73,8 @@ contract Marketplace is ReentrancyGuard {
             address(_nft),
             _tokenId,
             _price,
-            msg.sender
+            msg.sender,
+            _expirationTime // Store expiration time
         );
     }
 
@@ -81,7 +85,7 @@ contract Marketplace is ReentrancyGuard {
         require(msg.value >= _totalPrice, "not enough ether to cover item price and market fee");
         require(!item.sold, "item already sold");
         // Check expiration using the NFT contract
-        require(block.timestamp <= NFT(address(item.nft)).expirationTime(item.tokenId), "NFT has expired");
+        require(block.timestamp <= item.expirationTime, "NFT has expired");
 
 
         item.seller.transfer(item.price);
@@ -107,7 +111,7 @@ contract Marketplace is ReentrancyGuard {
         Item storage item = items[_itemId];
         
         // Check expiration using the NFT contract
-        require(block.timestamp <= NFT(address(item.nft)).expirationTime(item.tokenId), "NFT has expired");
+        require(block.timestamp <= item.expirationTime, "NFT has expired");
         listenCount[_itemId]++;
         emit Played(_itemId, msg.sender);
     }
