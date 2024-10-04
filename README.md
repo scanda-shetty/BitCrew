@@ -1,8 +1,5 @@
 # Decentralized Music Streaming Platform
 
-Reference - Link of original repository is https://github.com/dappuniversity/nft_marketplace
-## Technology Stack & Tools
-
 ## Setting Up
 ### 1. Clone/Download the Repository
 
