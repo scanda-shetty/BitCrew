@@ -167,3 +167,14 @@ h2 {
 .play-button:hover {
   background-color: #1ed760; /* Lighter shade on hover */
 }
+
+.like-icon {
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #ff0000; /* Red color for heart icon */
+  margin-left: 10px;
+}
+
+.like-icon.liked {
+  color: #ff0000; /* Red color when liked */
+}

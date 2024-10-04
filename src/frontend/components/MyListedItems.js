@@ -19,7 +19,7 @@ export default function MyListedItems({ marketplace, nft, account }) {
 
       for (let indx = 1; indx <= itemCount; indx++) {
         const i = await marketplace.items(indx);
-        if (i.seller && i.seller.toLowerCase() === account.toLowerCase()) {
+        if (i.seller.toLowerCase() === account.toLowerCase()) {
           const uri = await nft.tokenURI(i.tokenId);
           const response = await fetch(uri);
           const metadata = await response.json();
@@ -55,6 +55,7 @@ export default function MyListedItems({ marketplace, nft, account }) {
     try {
       const response = await axios.get(`https://gateway.pinata.cloud/ipfs/${existingIpfsHash}`);
       if (response.data) {
+        // Filter songs based on artistId matching the current MetaMask account
         const userSongs = response.data.filter(song => {
           if (song.artistId) {
             return song.artistId.toLowerCase() === account.toLowerCase();
@@ -73,15 +74,16 @@ export default function MyListedItems({ marketplace, nft, account }) {
     try {
       const itemCount = await marketplace.itemCount();
       let _soldNFTs = [];
-
+  
       for (let indx = 1; indx <= itemCount; indx++) {
         const i = await marketplace.items(indx);
-        if (i.buyer && i.buyer.toLowerCase() === account.toLowerCase()) {
+        console.log("Item:", i);
+        if (i.buyer && account && i.buyer.toLowerCase() === account.toLowerCase()) {
           const uri = await nft.tokenURI(i.tokenId);
           const response = await fetch(uri);
           const metadata = await response.json();
           const totalPrice = await marketplace.getTotalPrice(i.itemId);
-
+  
           let nftItem = {
             totalPrice,
             price: i.price,
@@ -91,7 +93,7 @@ export default function MyListedItems({ marketplace, nft, account }) {
             image: metadata.image,
             artist: metadata.artistName
           };
-
+  
           _soldNFTs.push(nftItem);
         }
       }
@@ -101,7 +103,7 @@ export default function MyListedItems({ marketplace, nft, account }) {
     }
     setLoading(false);
   };
-
+  
   useEffect(() => {
     loadListedItems();
     fetchSongs();
@@ -153,7 +155,9 @@ export default function MyListedItems({ marketplace, nft, account }) {
                     <Card.Text>Song Name: {song.songName}</Card.Text>
                     <Card.Text>Artist: {song.artistName}</Card.Text>
                     <Card.Text>Listen Count: {song.listenCount}</Card.Text>
-                    <Link to={`/create-nft/${song.id}`}>
+                    <Link
+                      to={`/create-nft/${song.id}`}
+                    >
                       <Button variant="primary">Create NFT</Button>
                     </Link>
                   </Card.Body>

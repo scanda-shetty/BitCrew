@@ -7,9 +7,9 @@ import './Create.css';
 
 const pinataApiKey = process.env.REACT_APP_PINATA_API_KEY;
 const pinataSecretApiKey = process.env.REACT_APP_PINATA_SECRET_API_KEY;
-const flaskApiUrl = 'http://127.0.0.1:5000/predict_streams'; // Flask API URL
+const flaskApiUrl = 'http://127.0.0.1:5000/predict_streams'; 
 
-const Create = () => {
+const CreateMusic = () => {
   const [thumbnail, setThumbnail] = useState(null);
   const [audio, setAudio] = useState(null);
   const [songName, setSongName] = useState('');
@@ -22,6 +22,8 @@ const Create = () => {
   const [prediction, setPrediction] = useState(null);
   const [dynamicRoyalties, setDynamicRoyalties] = useState(null);
   const [contractData, setContractData] = useState([]);
+  const [songLanguage, setSongLanguage] = useState(''); 
+  const [isFree, setIsFree] = useState(false); 
 
   useEffect(() => {
     fetchExistingData();
@@ -36,7 +38,7 @@ const Create = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!thumbnail || !audio || !songName || !artistName || !genre) {
+    if (!thumbnail || !audio || !songName || !artistName || !genre || !songLanguage) {
       alert('Please fill in all fields');
       return;
     }
@@ -47,15 +49,21 @@ const Create = () => {
       const thumbnailIpfsHash = await uploadFileToPinata(thumbnail);
       const audioIpfsHash = await uploadFileToPinata(audio);
 
+      // const lastSongId = songs && songs.length > 0 ? songs[songs.length - 1].id : 0;
+      // uncomment second line id:lastSongID + 1
       const newSong = {
         id: songs.length === 0 ? 1 : songs[songs.length - 1].id + 1,
+        // id: lastSongId + 1,  
         thumbnail: `https://gateway.pinata.cloud/ipfs/${thumbnailIpfsHash}`,
         audio: `https://gateway.pinata.cloud/ipfs/${audioIpfsHash}`,
         songName,
         artistName,
         genre,
+        songLanguage,
+        isFree, 
         artistId: currentAccount,
         listenCount: 0,
+        uploadTime: new Date().toISOString(), 
       };
 
       const updatedSongs = [...songs, newSong];
@@ -135,12 +143,15 @@ const Create = () => {
     console.log('Existing IPFS hash from local storage:', existingIpfsHash);
     try {
       const response = await axios.get(`https://gateway.pinata.cloud/ipfs/${existingIpfsHash}`);
-      if (response.data) {
+      if (response.data && Array.isArray(response.data)) { 
         setSongs(response.data);
         setPinataLink(`https://gateway.pinata.cloud/ipfs/${existingIpfsHash}`);
+      } else {
+        setSongs([]);  // If no songs are present, initialize as empty array
       }
     } catch (error) {
       console.error('Error fetching existing data:', error);
+      setSongs([]);  
     }
   };
 
@@ -249,6 +260,16 @@ const Create = () => {
           <label>Genre:</label>
           <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
         </div>
+        <div className='container-name'>
+          <label>Song Language:</label>
+          <input type="text" value={songLanguage} onChange={(e) => setSongLanguage(e.target.value)} />
+        </div>
+        <div className='container-name'>
+          <label>
+            Is this song free?  
+            <input type="checkbox" checked={isFree} onChange={(e) => setIsFree(e.target.checked)} />
+          </label>
+        </div>
         <button className='submit-button' type="submit" onClick={handleSubmit} disabled={uploading}>
           {uploading ? 'Uploading...' : 'Upload Song'}
         </button>
@@ -300,4 +321,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default CreateMusic;

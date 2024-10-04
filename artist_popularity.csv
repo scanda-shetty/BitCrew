@@ -1,0 +1,632 @@
+artist(s)_name,collaborators,followers,total_songs,artist_popularity
+Ed Sheeran,"Fireboy DML, J Balvin, Camila Cabello, Elton John, Taylor Swift",114360924,,88
+Taylor Swift,"Ed Sheeran, Lana Del Rey, Ice Spice",112943132,,100
+Arijit Singh,"Sachin-Jigar, Amitabh Bhattacharya, Sukriti Kakar, Vishal Dadlani, Shekhar Ravjiani, Amitabha Bhattacharya, Pritam, Vishal-Shekhar, Kumaar",112274134,,90
+Ariana Grande,The Weeknd,96958214,,91
+Billie Eilish,Khalid,95292754,,95
+Drake,"Travis Scott, Tems, 21 Savage, WizKid, DJ Khaled, Lil Baby, Project Pat, Kyla, Young Thug, Future",90019263,,96
+Eminem,"Nate Dogg, Dr. Dre, Dina Rae, Dido",85424764,,93
+The Weeknd,"21 Savage, Tyler, Daft Punk, Playboi Carti, Future, Swedish House Mafia, Doja Cat, Metro Boomin, Ariana Grande, Lil Wayne, Post Malone, Gesaffelstein, Rosalia, The Creator, Lana Del Rey, Madonna",84742929,,95
+Bad Bunny,"Julieta Venegas, J Balvin, Arcangel, Nio Garcia, Tony Dize, Rauw Alejandro, Eladio Carrion, Sech, Jhay Cortez, Daddy Yankee, Nengo Flow, Buscabulla, Gorillaz, The MarÃ¯Â¿Â½Ã¯, Mora, Aventura, Grupo Frontera, Tainy, Chencho Corleone",82230522,,95
+Justin Bieber,"Don Toliver, Daniel Caesar, The Kid Laroi, Giveon, Future",75403229,,90
+BTS,"Charlie Puth, Snoop Dogg, Coldplay, Halsey, Jung Kook, Benny Blanco, FIFA Sound",73536301,,87
+Rihanna,Calvin Harris,60420649,,91
+Bruno Mars,"Silk Sonic, Anderson .Paak",56031290,,93
+Adele,,55836346,,88
+Imagine Dragons,"Arcane, League of Legends, JID",52787370,,89
+Coldplay,"The Chainsmokers, BTS",50852534,,91
+Queen,,49998665,,86
+Selena Gomez,,49894165,,82
+BLACKPINK,,49289876,,81
+Karol G,"Romeo Santos, Shakira, Maldy, Ovy On The Drums, Quevedo, Becky G",47164010,,92
+XXXTENTACION,Kanye West,45102051,,88
+Post Malone,"Roddy Ricch, The Weeknd, Doja Cat, Swae Lee",44180276,,93
+Dua Lipa,"Megan Thee Stallion, DaBaby, Calvin Harris, Pnau, Sean Paul, Young Thug, Elton John",43646423,,88
+Shawn Mendes,Camila Cabello,42735906,,84
+Maroon 5,Wiz Khalifa,41667919,,86
+Beyonce,Kendrick Lamar,37934986,,87
+Olivia Rodrigo,,36734973,,88
+Ozuna,"Feid, Shakira, Tiago pzk",36663897,,87
+J Balvin,"Nio Garcia, Ed Sheeran, Bad Bunny, Maria Becerra",36594688,,88
+Lana Del Rey,"The Weeknd, Taylor Swift",35938821,,92
+Anuel Aa,"Mambo Kingz, Chris Jedi, Myke Towers, Jhay Cortez, DJ Luian, Nengo Flow, Chencho Corleone",35925699,,88
+One Direction,,35215296,,85
+Juice WRLD,Marshmello,33951210,,88
+Daddy Yankee,Bad Bunny,33893724,,87
+Maluma,,33844348,,86
+Marshmello,"Khalid, Manuel Turizo, Jonas Brothers, Juice WRLD",33645828,,84
+Katy Perry,Alesso,33334176,,86
+Shakira,"Bizarrap, Rauw Alejandro, Ozuna, David Guetta, Karol G, Black Eyed Peas",33202367,,86
+Camila Cabello,"Ed Sheeran, Shawn Mendes, Willow",33191164,,82
+Pritam,"Amitabh Bhattacharya, Arijit Singh",32748243,,88
+Harry Styles,,32316706,,84
+Sidhu Moose Wala,,32090451,,78
+Nicki Minaj,"Lil Baby, Aqua, Ice Spice",31370614,,86
+Guns N' Roses,,30832380,,80
+Doja Cat,"The Weeknd, SZA, Post Malone, Tyga",30100456,,86
+Lady Gaga,Bradley Cooper,30100083,,90
+Travis Scott,"21 Savage, SZA, Metro Boomin, Drake, Young Thug",29984927,,94
+Kendrick Lamar,"Sam Dew, Jay Rock, Tanna Leone, Taylour Paige, Beth Gibbons, Beyonce, Kodak Black, Blxst, Summer Walker, Ghostface Killah, Baby Keem, Amanda Reifer, Sampha",29919588,,92
+Sia,,28015877,,85
+Metallica,,27275101,,83
+Demi Lovato,,26476646,,78
+Kanye West,"Cardi B, XXXTENTACION, Alicia Keys, Lil Durk, Fivio Foreign",25637749,,93
+David Guetta,"Bebe Rexha, Becky Hill, Shakira, Anne-Marie, Ella Henderson, Coi Leray, Black Eyed Peas",25585124,,90
+Linkin Park,,25532052,,91
+Arctic Monkeys,,24963235,,87
+Miley Cyrus,,24098289,,84
+Cardi B,"Kanye West, Lil Durk",23967343,,80
+Sam Smith,"Kim Petras, Calvin Harris, Jessie Reyez",23758151,,84
+J. Cole,"Lil Durk, j-hope",23694022,,86
+Avicii,,22785566,,81
+Charlie Puth,"Jung Kook, BTS",22782681,,81
+Paulo Londra,"Bizarrap, Feid",22705455,,78
+Calvin Harris,"Dua Lipa, Justin Timberlake, Jessie Reyez, Halsey, Pharrell Williams, Ellie Goulding, Rihanna, Young Thug, Sam Smith",22592000,,87
+Chris Brown,"Metro Boomin, Rvssian, Rauw Alejandro, Future",21970123,,88
+Rauw Alejandro,"Chris Brown, Bizarrap, Lyanno, Shakira, Baby Rasta, Alvaro Diaz, Bad Bunny, Rvssian, Rosalia, Brray, Chencho Corleone",21938144,,90
+Halsey,"Justin Timberlake, BTS, Calvin Harris, Pharrell Williams, Suga, The Chainsmokers",21527238,,82
+Romeo Santos,Karol G,21028518,,84
+SZA,"Travis Scott, Phoebe Bridgers, Don Toliver, Doja Cat",20650533,,90
+Melanie Martinez,,20463413,,80
+TWICE,,20229782,,79
+The Chainsmokers,"Halsey, Coldplay",20179100,,82
+Nirvana,,19510638,,83
+21 Savage,"Travis Scott, Tyler, Pharrell Williams, The Weeknd, Gunna, Metro Boomin, Project Pat, Drake, The Creator",18818737,,89
+Nicky Jam,Feid,18692168,,82
+V,,18236998,,83
+2Pac,"Dr. Dre, Roger",18017090,,80
+j-hope,J. Cole,17656939,,73
+Lil Baby,"Drake, Nicki Minaj, DJ Khaled, Gunna",17638416,,86
+Future,"Lil Uzi Vert, Chris Brown, Tems, Don Toliver, The Weeknd, Gunna, Metro Boomin, Drake, Young Thug, Justin Bieber",17313947,,92
+Lil Uzi Vert,"Metro Boomin, sped up nightcore, ARIZONATEARS, Future",17229376,,85
+James Arthur,,17168633,,81
+OneRepublic,,17051514,,85
+RM,Colde,16715278,,79
+P!nk,,16677242,,82
+The Neighbourhood,,16567456,,85
+Junior H,"Oscar Maydon, Grupo Marca Registrada, El Chachito, Peso Pluma, Gabito Ballesteros, Eden MuÃ¯Â¿Â½Ã¯",16559759,,90
+Cartel De Santa,La Kelly,16337839,,78
+Khalid,"Billie Eilish, Marshmello",16169608,,85
+Farruko,,15703071,,83
+Stray Kids,,15640139,,85
+Bizarrap,"Paulo Londra, Residente, Rauw Alejandro, Arcangel, Shakira, Tiago pzk, Peso Pluma, Quevedo, Villano Antillano",15401552,,82
+Tyler,"21 Savage, Kali Uchis, Pharrell Williams, The Weeknd, The Creator",15240673,,86
+The Creator,"21 Savage, Tyler, Kali Uchis, Pharrell Williams, The Weeknd",15240673,,86
+Tulus,,15170798,,75
+Meghan Trainor,,15056245,,79
+Myke Towers,"Feid, Quevedo, Sky Rompiendo, Jhay Cortez, Anuel Aa",15024813,,89
+Jung Kook,"Latto, Charlie Puth, FIFA Sound, BTS",14805904,,87
+Becky G,"Karol G, Peso Pluma, Anitta, Tini",14649495,,79
+Lil Wayne,"Metro Boomin, Offset, The Weeknd, Swae Lee",14642576,,86
+Britney Spears,Elton John,14617639,,82
+50 Cent,,14589491,,84
+Christian Nodal,,14465306,,82
+Agust D,IU,14462227,,78
+Arcangel,"Bizarrap, Lenny TavÃ¯Â¿Â½Ã¯Â¿Â½rez, Rich Music, Sech, Bad Bunny, Dalex, Dimelo Flow, Justin Quiles, De La Ghetto",14291367,,84
+Aerosmith,,14265447,,76
+A$AP Rocky,"Metro Boomin, Roisee",14247301,,85
+Frank Ocean,,14115572,,88
+Justin Timberlake,"Calvin Harris, Pharrell Williams, Halsey",14107451,,82
+Peso Pluma,"Bizarrap, Becky G, BLESSD, Fuerza Regida, Natanael Cano, Eslabon Armado, Gabito Ballesteros, Sog, Yng Lvcas, Grupo Frontera, Ryan Castro, Junior H, Luis R Conriquez",14103554,,93
+Elton John,"Dua Lipa, Ed Sheeran, Pnau, Britney Spears",13341891,,83
+Natanael Cano,"Gabito Ballesteros, Fuerza Regida, Peso Pluma",13149923,,89
+Childish Gambino,,12819346,,82
+Lewis Capaldi,,12546908,,80
+Ellie Goulding,Calvin Harris,12415786,,80
+Lil Nas X,Jack Harlow,12399563,,76
+Panic! At The Disco,,12193618,,77
+Mahalini,,12171352,,77
+Jason Derulo,,12035097,,79
+DaBaby,Dua Lipa,12000108,,79
+Sech,"Feid, Mora, Arcangel, Lenny TavÃ¯Â¿Â½Ã¯Â¿Â½rez, Rich Music, Bad Bunny, Dalex, Justin Quiles, Dimelo Flow, Jhayco, De La Ghetto",11966346,,79
+Anne-Marie,"Coi Leray, David Guetta",11909986,,79
+Snoop Dogg,"Benny Blanco, Dr. Dre, BTS",11874857,,83
+Dr. Dre,"2Pac, Eminem, Snoop Dogg, Roger",11819519,,81
+Alicia Keys,"Kanye West, Fivio Foreign",11767534,,80
+Carin Leon,Grupo Frontera,11716313,,87
+Gorillaz,Bad Bunny,11701202,,80
+Feid,"Nicky Jam, Ozuna, Sean Paul, Jhayco, Yandel, Alejo, Sech, Sky Rompiendo, Paloma Mami, Saiko, Young Miko, Pailita, De La Ghetto, Paulo Londra, Robi, Mora, Quevedo, Polima WestCoast, Myke Towers",11697710,,92
+Don Omar,Lucenzo,11597840,,83
+SEVENTEEN,,11569864,,80
+DJ Khaled,"Lil Baby, Drake",11414059,,75
+Cigarettes After Sex,,11362724,,85
+Vishal Dadlani,"Shilpa Rao, Sukriti Kakar, Arijit Singh, Shekhar Ravjiani, Vishal-Shekhar, Caralisa Monteiro, Kumaar",11361506,,74
+Polo G,"Mae Muller, NEIKED",11349491,,81
+Wiz Khalifa,Maroon 5,11036794,,82
+Playboi Carti,"The Weeknd, Madonna",10912846,,88
+Luke Combs,,10668938,,87
+Duki,"FMK, NICKI NICOLE, Maria Becerra, Standly, Lit Killah, Tiago pzk, Big One, Rusherking, Stars Music Chile, Quevedo, Emilia, De La Ghetto, Cris Mj",10604390,,82
+Roddy Ricch,Post Malone,10591281,,77
+Kodak Black,"Kendrick Lamar, JVKE, NLE Choppa, Jimin, Muni Long",10577723,,82
+Kelly Clarkson,,10433993,,73
+TOMORROW X TOGETHER,,10098478,,78
+Mariah Carey,,10029493,,78
+Young Thug,"Travis Scott, Dua Lipa, Calvin Harris, Gunna, Metro Boomin, Drake, Future",9999063,,85
+Radiohead,,9979198,,83
+Lil Yachty,,9961219,,80
+Daft Punk,"The Weeknd, Pharrell Williams, Nile Rodgers",9916610,,81
+NF,,9897693,,79
+Niall Horan,,9877245,,76
+Conan Gray,,9704019,,79
+Morgan Wallen,"Lil Durk, Eric Church",9653624,,91
+Joji,,9544854,,79
+Fuerza Regida,"Chino Pacas, Grupo Frontera, Peso Pluma, Natanael Cano",9336105,,88
+(G)I-DLE,,9184905,,76
+Sabrina Carpenter,,9179091,,95
+Bebe Rexha,David Guetta,9144634,,81
+Megan Thee Stallion,Dua Lipa,9140759,,84
+Burna Boy,,9090876,,81
+ENHYPEN,,8892655,,81
+IU,Agust D,8573451,,71
+Lil Tjay,,8515922,,78
+Jimin,"JVKE, NLE Choppa, HA SUNG WOON, TAEYANG, Kodak Black, Muni Long",8412513,,89
+Metro Boomin,"A$AP Rocky, Beam, NAV, A Boogie Wit da Hoodie, Lil Uzi Vert, Offset, Future, 21 Savage, The Weeknd, Young Thug, Roisee, Travis Scott, Don Toliver, Toian, Lil Wayne, Coi Leray, Chris Brown, WizKid, John Legend, James Blake, Swae Lee",8367830,,90
+A Boogie Wit da Hoodie,"Metro Boomin, NAV, Swae Lee",8233104,,79
+NewJeans,,8178883,,82
+NLE Choppa,"JVKE, Kodak Black, Jimin, Muni Long",8169798,,79
+Troye Sivan,,8165353,,78
+Black Eyed Peas,"Shakira, David Guetta",8155390,,81
+Rosalia,"Rauw Alejandro, Wisin & Yandel, The Weeknd",8143088,,83
+Aventura,Bad Bunny,8023208,,81
+Tini,"Maria Becerra, Steve Aoki, La Joaqui, Anitta, L-Gante, Becky G",7942812,,79
+Madonna,"Playboi Carti, The Weeknd",7910987,,81
+YOASOBI,,7881644,,76
+Jin,,7833461,,73
+Jhayco,"Quevedo, Feid, Sech",7687324,,84
+Jhay Cortez,"Myke Towers, Bad Bunny, Anuel Aa",7687324,,84
+Yandel,Feid,7674407,,80
+Zion & Lennox,,7588212,,77
+Jonas Brothers,Marshmello,7586720,,75
+Skrillex,"Fred again.., Flowdan",7580640,,77
+Lil Durk,"Morgan Wallen, Kanye West, J. Cole, Cardi B",7571966,,81
+Lisa,TAEYANG,7543427,,82
+Vishal-Shekhar,"Shilpa Rao, Sukriti Kakar, Vishal Dadlani, Arijit Singh, Shekhar Ravjiani, Caralisa Monteiro, Kumaar",7415685,,76
+Gunna,"Lil Baby, 21 Savage, Future, Young Thug",7382073,,87
+Chase Atlantic,,7369638,,82
+Wisin & Yandel,Rosalia,7328889,,80
+The Killers,,7299074,,79
+Kali Uchis,"Tyler, Moliy, The Creator, Amaarae",7280515,,85
+Hozier,,7250388,,86
+girl in red,,7245276,,76
+De La Ghetto,"Feid, Arcangel, Duki, Lenny TavÃ¯Â¿Â½Ã¯Â¿Â½rez, Rich Music, Sech, Polima WestCoast, Paloma Mami, Dalex, Justin Quiles, Dimelo Flow, Quevedo, Pailita",7197359,,78
+Frank Sinatra,B. Swanson Quartet,7183356,,78
+Rels B,,7158609,,84
+Blake Shelton,Gwen Stefani,7131775,,74
+Mc Livinho,DJ Matt D,7065518,,72
+Kevin Kaarl,,7022873,,74
+Eladio Carrion,Bad Bunny,6904046,,81
+Tyga,Doja Cat,6853021,,78
+John Legend,Metro Boomin,6791883,,76
+Tory Lanez,,6729259,,82
+TV Girl,,6632719,,83
+Creedence Clearwater Revival,,6620714,,82
+Gwen Stefani,Blake Shelton,6500015,,74
+Summer Walker,"Kendrick Lamar, Ghostface Killah",6458804,,80
+Maria Becerra,"FMK, J Balvin, NICKI NICOLE, Duki, Lit Killah, Tiago pzk, Big One, Rusherking, Emilia, Tini",6450711,,82
+Trueno,Tiago pzk,6320228,,81
+The Police,,6108976,,78
+Ana Castela,"AgroPlay, Dj Chris No Beat, Melody, Israel & Rodolffo",6084873,,81
+Kevin Gates,Juicy J,6084650,,73
+Nengo Flow,"Chris Jedi, Bad Bunny, Anuel Aa, Chencho Corleone",6061723,,80
+John Lennon,"The Harlem Community Choir, Yoko Ono, The Plastic Ono Band",6018766,,70
+Rex Orange County,,6004459,,76
+Daniel Caesar,"Giveon, Justin Bieber",5936558,,82
+Mac DeMarco,,5935657,,81
+Kenshi Yonezu,,5911596,,76
+La Adictiva,Luis R Conriquez,5889367,,73
+Gustavo Mioto,Mari Fernandez,5828407,,78
+Lizzo,,5714675,,70
+Calum Scott,Lost Frequencies,5606774,,77
+Eslabon Armado,Peso Pluma,5529700,,78
+Central Cee,Dave,5524671,,83
+Lit Killah,"FMK, NICKI NICOLE, Maria Becerra, Duki, Tiago pzk, Big One, Rusherking, Emilia",5473565,,73
+WizKid,"Don Toliver, Beam, Toian, Metro Boomin, Kyla, Drake",5458492,,78
+Tate McRae,,5431931,,84
+Danny Ocean,,5424448,,77
+The Kid Laroi,Justin Bieber,5341491,,85
+LE SSERAFIM,Nile Rodgers,5269643,,81
+Nio Garcia,"Bad Bunny, J Balvin",5269156,,71
+Luis R Conriquez,"La Adictiva, Peso Pluma",5240010,,85
+Alec Benjamin,,5081042,,75
+Miguel,,5075013,,80
+AP Dhillon,"Gurinder Gill, Intense",5034789,,76
+Tiago pzk,"Bizarrap, FMK, NICKI NICOLE, Maria Becerra, Duki, Ozuna, Lit Killah, Big One, Rusherking, Trueno, Emilia",5032999,,80
+Mora,"Feid, Sech, Bad Bunny, Saiko, Quevedo",5032856,,82
+Dove Cameron,,4997564,,73
+MC Ryan SP,"Love Funk, Mc Paiva ZS",4988242,,84
+Blackbear,BoyWithUke,4948303,,74
+YEAT,,4911820,,82
+Kenia OS,,4904522,,77
+BIGBANG,,4877150,,66
+Paul McCartney,,4778503,,72
+Suga,"Halsey, PSY",4734068,,64
+Zendaya,Labrinth,4693265,,71
+Sean Paul,"Dua Lipa, Feid",4688191,,81
+Mc Paiva ZS,"Love Funk, MC Ryan SP",4682183,,73
+Steve Lacy,,4664975,,82
+King,,4617592,,77
+Mc Pedrinho,"Pedro Sampaio, DJ 900",4577467,,66
+Quevedo,"Bizarrap, Feid, Mora, La Pantera, Duki, Cruz CafunÃ¯Â¿Â½Ã¯Â¿Â½, Juseph, De La Ghetto, Abhir Hathi, Saiko, Ovy On The Drums, Myke Towers, Jhayco, BÃ¯Â¿Â½Ã¯Â¿Â½jo, Karol G",4575599,,82
+Pharrell Williams,"Justin Timberlake, 21 Savage, Tyler, Calvin Harris, Halsey, Daft Punk, Nile Rodgers, The Creator",4507602,,81
+JVKE,"Kodak Black, Jimin, Muni Long, NLE Choppa",4445940,,77
+Yuridia,Angela Aguilar,4429765,,76
+Don Toliver,"WizKid, SZA, Beam, Toian, Metro Boomin, Justin Bieber, Future",4424571,,86
+Plan B,,4334853,,81
+Grupo Marca Registrada,"Grupo Frontera, Junior H",4277542,,80
+Veigh,"Bvga Beatz, Prod Malax, Supernova Ent",4267886,,79
+Mabel Matiz,Mert Demir,4224167,,69
+IVE,,4192041,,74
+BoyWithUke,Blackbear,4168389,,73
+Zach Bryan,,4146267,,91
+L7nnon,"DJ Biel do Furduncinho, Bianca",4145422,,74
+Glass Animals,,4135798,,78
+PnB Rock,,4126996,,69
+Offset,"Metro Boomin, Lil Wayne, Swae Lee, JID",4084694,,79
+BLESSD,Peso Pluma,4059590,,81
+Grupo Frontera,"Yahritza Y Su Esencia, Carin Leon, Grupo Marca Registrada, Bad Bunny, Fuerza Regida, Peso Pluma",4034048,,85
+NIKI,,4014536,,78
+Alesso,Katy Perry,3887927,,76
+Shubh,,3847542,,76
+Tom Odell,,3841917,,79
+Eric Church,Morgan Wallen,3835889,,73
+Giveon,"Daniel Caesar, Justin Bieber",3822375,,77
+Jack Harlow,Lil Nas X,3809382,,79
+Swedish House Mafia,The Weeknd,3756582,,77
+Steve Aoki,"La Joaqui, Tini",3742228,,72
+Ke personajes,"Big One, FMK",3690076,,77
+Tony Dize,Bad Bunny,3689942,,73
+Ice Spice,"PinkPantheress, Aqua, Nicki Minaj, Taylor Swift",3651157,,76
+teto,,3636874,,40
+Sofia Carson,,3599326,,72
+JISOO,,3569060,,64
+Milo j,Taiu,3549976,,83
+Ruth B.,,3493725,,73
+NAV,"Metro Boomin, Swae Lee, A Boogie Wit da Hoodie",3472493,,73
+Tears For Fears,,3446064,,74
+Treasure,,3374872,,66
+Keane,,3373828,,74
+PinkPantheress,Ice Spice,3370249,,77
+Baby Rasta,Rauw Alejandro,3320047,,63
+Stromae,,3308673,,71
+Fujii Kaze,,3289356,,73
+Keisya Levronka,,3286061,,61
+Semicenk,DoÃ¯Â¿Â½Ã¯Â¿Â½u,3258200,,77
+Labrinth,Zendaya,3247717,,77
+Charli XCX,"Jax Jones, Saweetie, Joel Corry",3242812,,88
+Dean Lewis,,3188701,,76
+Juicy J,Kevin Gates,3172689,,74
+Ghost,,3126035,,74
+Robin Schulz,Oliver Tree,3086670,,78
+Vance Joy,,3085907,,76
+Young Miko,Feid,3074327,,80
+MC Kevin o Chris,dennis,3019326,,73
+Mari Fernandez,"Israel & Rodolffo, Gustavo Mioto",3008381,,76
+Aitana,zzoilo,2989872,,74
+Emilia,"FMK, Maria Becerra, Duki, Lit Killah, Tiago pzk, Big One, Rusherking",2988443,,80
+Tones and I,,2933129,,71
+KayBlack,MC Caverinha,2914223,,78
+Chefin,Mainstreet,2888605,,69
+Gabito Ballesteros,"Natanael Cano, Peso Pluma, Junior H",2853457,,84
+NMIXX,,2840421,,69
+Cris Mj,"NICKI NICOLE, Duki, Standly, Ak4:20, Stars Music Chile, Pailita",2826348,,87
+Lost Frequencies,Calum Scott,2808883,,81
+Simone Mendes,,2801077,,78
+The Goo Goo Dolls,,2787325,,76
+Benson Boone,,2767644,,86
+C. Tangana,,2729771,,73
+Wham!,,2728086,,70
+Dopamine,"Riton, Nightcrawlers, Mufasa & Hypeman",2705635,,26
+Twisted,Oliver Tree,2645538,,62
+d4vd,,2631583,,79
+Chris Jedi,"Anuel Aa, Nengo Flow, Chencho Corleone",2607299,,70
+Willow,"THE ANXIETY, Camila Cabello, Tyler Cole",2593394,,72
+Pedro Sampaio,Mc Pedrinho,2567398,,73
+Ryan Castro,"Sog, Peso Pluma",2549651,,79
+Anderson .Paak,"Bruno Mars, Silk Sonic",2522538,,79
+Israel & Rodolffo,"Ana Castela, Mari Fernandez",2483909,,69
+Rvssian,"Chris Brown, Rauw Alejandro",2479797,,75
+Oliver Tree,"Twisted, Robin Schulz",2447471,,71
+Phoebe Bridgers,SZA,2403574,,78
+Baby Keem,"Kendrick Lamar, Sam Dew",2375596,,77
+Julieta Venegas,"Bad Bunny, Tainy",2359381,,76
+Macklemore,"Ryan Lewis, Ray Dalton",2329704,,78
+Shilpa Rao,"Vishal Dadlani, Shekhar Ravjiani, Vishal-Shekhar, Caralisa Monteiro, Kumaar",2328340,,77
+a-ha,,2288141,,74
+Sachin-Jigar,"Shadab Faridi, Amitabh Bhattacharya, Arijit Singh, Varun Jain, Amitabha Bhattacharya, Altamash Faridi",2280558,,82
+L-Gante,Tini,2274710,,65
+Nat King Cole,,2249058,,70
+Saweetie,"Jax Jones, Charli XCX, Joel Corry",2235891,,70
+Leo Santana,,2226363,,70
+24kgoldn,Iann Dior,2218586,,71
+Beach House,,2213899,,73
+David Kushner,,2195910,,77
+Gotye,Kimbra,2163995,,72
+Swae Lee,"Offset, Metro Boomin, Lil Wayne, Post Malone, NAV, A Boogie Wit da Hoodie",2163580,,81
+DJ Luian,"Anuel Aa, Mambo Kingz",2159017,,77
+Tainy,"Bad Bunny, Julieta Venegas",2132591,,79
+Chino Pacas,Fuerza Regida,2114652,,80
+Nayeon,,2063140,,68
+Chuck Berry,,1994750,,67
+Kate Bush,,1993944,,71
+Sleepy hallow,347aidan,1991984,,76
+Dave,Central Cee,1975865,,65
+AnnenMayKantereit,Giant Rooks,1930105,,68
+Fireboy DML,Ed Sheeran,1861227,,74
+Tems,"Future, Drake",1861227,,78
+League of Legends,"Arcane, Imagine Dragons, JID",1853018,,77
+Iann Dior,24kgoldn,1844614,,71
+Freddie Dredd,,1832638,,70
+Dido,Eminem,1812838,,75
+JID,"Offset, League of Legends, Imagine Dragons, Arcane",1764380,,77
+Oscar Maydon,Junior H,1743541,,85
+Rusherking,"FMK, Maria Becerra, Duki, Lit Killah, Tiago pzk, Big One, Emilia",1724665,,70
+Dean Martin,,1685162,,69
+Nate Dogg,Eminem,1680599,,77
+Zakaria,GODZZ__-,1662063,,13
+Yung Gravy,,1658693,,68
+Latto,Jung Kook,1643009,,80
+La Joaqui,"Steve Aoki, Tini",1638405,,72
+Ella Henderson,"Becky Hill, David Guetta",1614742,,74
+Fifty Fifty,,1603138,,68
+Lord Huron,,1596495,,78
+PSY,Suga,1585592,,63
+FMK,"Maria Becerra, Duki, Lit Killah, Tiago pzk, Big One, Rusherking, Ke personajes, Emilia",1543480,,69
+Fred again..,"Skrillex, Flowdan",1498869,,81
+RAYE,070 Shake,1498228,,78
+Jay Rock,Kendrick Lamar,1474717,,72
+Ckay,"Dj Yo!, AX'EL",1473314,,68
+James Blake,Metro Boomin,1443916,,70
+Stephen Sanchez,Em Beihold,1427309,,75
+Lauren Spencer Smith,Lauren Spencer Smith,1421119,,67
+Jessie Reyez,"Calvin Harris, Sam Smith",1406318,,67
+Residente,Bizarrap,1393226,,63
+TAEYANG,"Lisa, Jimin",1389030,,64
+Mahmood,Blanco,1386494,,67
+Lyanno,"Rauw Alejandro, Brray",1375974,,74
+Fivio Foreign,"Kanye West, Alicia Keys",1313269,,67
+Nessa Barrett,,1311221,,68
+Kordhell,,1258476,,72
+Paloma Faith,,1246996,,66
+Luar La L,,1240338,,75
+Bellakath,,1184013,,73
+Jax Jones,"Joel Corry, MNEK, Charli XCX, Saweetie",1176383,,73
+Benny Blanco,"BTS, Snoop Dogg",1157844,,71
+Surf Curse,,1153838,,74
+Paloma Mami,"Polima WestCoast, Pailita, Feid, De La Ghetto",1142320,,63
+Coolio,L.V.,1119638,,71
+Anggi Marito,,1119287,,63
+Kim Petras,Sam Smith,1096790,,76
+Loreen,,1059544,,69
+Chris Rea,,1033820,,60
+Standly,"NICKI NICOLE, Duki, Stars Music Chile, Cris Mj",1011329,,70
+Sukriti Kakar,"Vishal Dadlani, Arijit Singh, Shekhar Ravjiani, Vishal-Shekhar, Kumaar",1004971,,58
+Saiko,"Quevedo, Feid, Mora",1001682,,78
+Omar Apollo,,998218,,70
+KALUSH,,996786,,52
+Jessi,,982409,,76
+Chencho Corleone,"Rauw Alejandro, Chris Jedi, Bad Bunny, Anuel Aa, Nengo Flow",963965,,80
+Seafret,,959719,,68
+Jain,,952823,,64
+Peggy Gou,,938903,,69
+Jaymes Young,,938700,,67
+Yung Lean,,937876,,67
+Lizzy McAlpine,,936242,,73
+Raim Laode,,934844,,61
+Ghostface Killah,"Kendrick Lamar, Summer Walker",916931,,64
+Angela Aguilar,Yuridia,905723,,73
+Oxlade,,899515,,64
+Silk Sonic,"Bruno Mars, Anderson .Paak",885095,,73
+Shae Gill,Ali Sethi,858933,,55
+Shekhar Ravjiani,"Shilpa Rao, Sukriti Kakar, Vishal Dadlani, Arijit Singh, Vishal-Shekhar, Caralisa Monteiro, Kumaar",845055,,69
+Project Pat,"21 Savage, Drake",826758,,68
+Amitabh Bhattacharya,"Sachin-Jigar, Shadab Faridi, Arijit Singh, Varun Jain, Altamash Faridi, Pritam",815044,,81
+Becky Hill,"Ella Henderson, David Guetta",808017,,74
+Ak4:20,"Pailita, Cris Mj",807819,,64
+Coi Leray,"Metro Boomin, Anne-Marie, David Guetta",802178,,73
+Yahritza Y Su Esencia,Grupo Frontera,801637,,64
+Lasso,,773154,,67
+INTERWORLD,,769775,,68
+Kaifi Khalil,,765985,,63
+Sampha,Kendrick Lamar,758488,,66
+Alvaro Diaz,Rauw Alejandro,737688,,77
+Masked Wolf,,735192,,64
+Mr.Kitty,,724695,,65
+The Walters,,719024,,73
+AgroPlay,Ana Castela,698009,,70
+Melody,"Ana Castela, Dj Chris No Beat",694194,,60
+Love Funk,"Mc Paiva ZS, MC Ryan SP",689596,,74
+Suki Waterhouse,,687384,,72
+dennis,MC Kevin o Chris,675279,,67
+Hotel Ugly,,674447,,76
+Gurinder Gill,"AP Dhillon, Intense",666823,,69
+Gayle,,623864,,62
+Cherish,ACRAZE,621762,,64
+Beach Weather,,618108,,70
+Gesaffelstein,The Weeknd,617807,,72
+Nickoog Clk,"Polima WestCoast, Fran C, Pablito Pesadilla",602407,,65
+Colde,RM,593005,,61
+SALES,,577705,,60
+Duncan Laurence,,569107,,66
+Polima WestCoast,"Feid, Pablito Pesadilla, Pailita, Fran C, Nickoog Clk, Paloma Mami, De La Ghetto",562532,,67
+MC Caverinha,KayBlack,558846,,59
+Armani White,,545014,,63
+070 Shake,RAYE,535590,,69
+Andy Williams,,534468,,58
+Muni Long,"JVKE, Kodak Black, Jimin, NLE Choppa",531016,,69
+Perry Como,"The Fontane Sisters, Mitchell Ayres & His Orchestra",523203,,58
+Kanii,PR1ISVX,521332,,68
+Gabry Ponte,"LUM!X, Prezioso",521000,,76
+Bing Crosby,"John Scott Trotter & His Orchestra, Ken Darby Singers",518843,,58
+DJ Matt D,Mc Livinho,511007,,59
+Big One,"FMK, Duki, Maria Becerra, Lit Killah, Tiago pzk, Rusherking, Ke personajes, Emilia",496759,,74
+El Chachito,Junior H,489507,,58
+Blxst,"Kendrick Lamar, Amanda Reifer",486962,,69
+347aidan,Sleepy hallow,484436,,63
+Giant Rooks,AnnenMayKantereit,483529,,63
+Baby Tate,,481128,,67
+Doechii,,471673,,73
+Em Beihold,Stephen Sanchez,470542,,70
+Libianca,,468792,,66
+Dj Chris No Beat,"Ana Castela, Melody",464349,,63
+ThxSoMch,,426894,,67
+Kaliii,Kaliii,425355,,59
+Migrantes,"Nico Valdi, LiL CaKe",420651,,66
+Kimbra,Gotye,419541,,72
+Joel Corry,"Jax Jones, Charli XCX, Saweetie",419344,,73
+New West,,417436,,69
+Vundabar,,416099,,65
+Ali Sethi,Shae Gill,404183,,57
+The Rare Occasions,,399543,,66
+Brray,"Lyanno, Rauw Alejandro",392180,,73
+Victor Cibrian,,392056,,67
+Mert Demir,Mabel Matiz,389025,,69
+Amaarae,"Kali Uchis, Moliy",388709,,69
+SiM,,387590,,59
+Brenda Lee,,383709,,58
+Sam Ryder,,378046,,51
+Rosa Linn,,374831,,68
+James Hype,Miggy Dela Rosa,363057,,70
+Yng Lvcas,Peso Pluma,355514,,71
+Ovy On The Drums,"Quevedo, Karol G",341266,,78
+Thezth,"utku INC, Styrx",339799,,56
+Ludwig Goransson,Foudeqush,327377,,66
+Mambo Kingz,"DJ Luian, Anuel Aa",321629,,77
+The Ronettes,,302460,,63
+MNEK,Jax Jones,289128,,69
+Roger,"2Pac, Dr. Dre",270394,,54
+Bradley Cooper,Lady Gaga,252676,,70
+Villano Antillano,Bizarrap,245070,,68
+Nicky Youre,Dazy,243781,,69
+HA SUNG WOON,Jimin,241371,,55
+Imanbek,BYOR,235247,,71
+Pnau,"Elton John, Dua Lipa",233625,,72
+Leah Kate,,226236,,57
+Altamash Faridi,"Sachin-Jigar, Shadab Faridi, Amitabh Bhattacharya, Varun Jain",208341,,66
+Sog,"Peso Pluma, Ryan Castro",203132,,45
+Jack Black,,198665,,54
+Sky Rompiendo,"Myke Towers, Feid",187962,,71
+LUM!X,"Gabry Ponte, Prezioso",183191,,68
+FIFA Sound,"Jung Kook, BTS",181318,,59
+Arcane,"Imagine Dragons, League of Legends, JID",180336,,71
+THE ANXIETY,"Tyler Cole, Willow",177593,,58
+Alejo,"Robi, Feid",176884,,62
+Emmy Meli,,174512,,51
+Mae Stephens,,174094,,63
+NEIKED,"Polo G, Mae Muller",173753,,59
+sped up nightcore,"Lil Uzi Vert, ARIZONATEARS",170496,,71
+LiL CaKe,"Migrantes, Nico Valdi",170199,,57
+Blanco,Mahmood,155677,,58
+Shakin' Stevens,,152931,,52
+Beth Gibbons,Kendrick Lamar,149272,,50
+MC Tairon,"Mc Vitin Da Igrejinha, DJ Win",148670,,57
+Mae Muller,"Polo G, NEIKED",148213,,58
+Riton,"Dopamine, Nightcrawlers, Mufasa & Hypeman",137188,,67
+Nile Rodgers,"Daft Punk, Pharrell Williams, LE SSERAFIM",136824,,74
+Yoko Ono,"The Harlem Community Choir, John Lennon, The Plastic Ono Band",135384,,50
+Kumaar,"Shilpa Rao, Sukriti Kakar, Vishal Dadlani, Arijit Singh, Shekhar Ravjiani, Vishal-Shekhar, Caralisa Monteiro",135346,,73
+Lucenzo,Don Omar,135342,,72
+Pablito Pesadilla,"Polima WestCoast, Fran C, Nickoog Clk",132407,,50
+Luude,Colin Hay,130746,,66
+Maldy,Karol G,129156,,62
+Southstar,,128483,,64
+ACRAZE,Cherish,128053,,64
+Prezioso,"LUM!X, Gabry Ponte",127532,,66
+Colin Hay,Luude,115581,,58
+Shadab Faridi,"Sachin-Jigar, Amitabh Bhattacharya, Varun Jain, Altamash Faridi",105820,,64
+zzoilo,Aitana,99538,,61
+Burl Ives,,99147,,48
+Fran C,"Polima WestCoast, Pablito Pesadilla, Nickoog Clk",99062,,64
+Buscabulla,Bad Bunny,94845,,61
+Flowdan,"Skrillex, Fred again..",94582,,67
+Dj Yo!,"Ckay, AX'EL",86395,,63
+Musical Youth,,84668,,53
+Encanto - Cast,"Carolina Gaitan, Diane Guerrero, Stephanie Beatriz, Rhenzy Feliz, Mauro Castillo, Adassa, Olga Merediz",81219,,61
+Robi,"Alejo, Feid",78984,,64
+Supernova Ent,"Bvga Beatz, Prod Malax, Veigh",74995,,75
+LF System,,74719,,65
+Ray Dalton,"Ryan Lewis, Macklemore",74214,,74
+MC MENOR HR,"MC MENOR SG, DJ Escobar",71761,,49
+Beam,"Metro Boomin, Don Toliver, Toian, WizKid",71679,,60
+Taiu,Milo j,71062,,72
+Jnr Choi,,69421,,50
+Chanel,,68318,,30
+Carolina Gaitan,"Diane Guerrero, Stephanie Beatriz, Rhenzy Feliz, Mauro Castillo, Adassa, Encanto - Cast",63619,,58
+Caralisa Monteiro,"Shilpa Rao, Vishal Dadlani, Shekhar Ravjiani, Vishal-Shekhar, Kumaar",62489,,63
+Eliza Rose,Interplanetary Criminal,62140,,61
+Bvga Beatz,"Prod Malax, Veigh, Supernova Ent",59454,,71
+Stephanie Beatriz,"Encanto - Cast, Carolina Gaitan, Diane Guerrero, Rhenzy Feliz, Mauro Castillo, Adassa, Olga Merediz",57483,,67
+Nightcrawlers,"Dopamine, Riton, Mufasa & Hypeman",57089,,63
+Darlene Love,,57008,,44
+Riar Saab,Abhijay Sharma,56013,,53
+Edison Lighthouse,,53975,,56
+MC Xenon,Os Gemeos da Putaria,50917,,55
+sped up 8282,,48968,,14
+Bobby Helms,,45931,,51
+Aqua,"Nicki Minaj, Ice Spice",44286,,46
+Foudeqush,Ludwig Goransson,43475,,51
+Varun Jain,"Sachin-Jigar, Shadab Faridi, Amitabh Bhattacharya, Altamash Faridi",42262,,68
+Interplanetary Criminal,Eliza Rose,41681,,60
+Mauro Castillo,"Carolina Gaitan, Diane Guerrero, Stephanie Beatriz, Rhenzy Feliz, Adassa, Encanto - Cast",40848,,58
+The Plastic Ono Band,"The Harlem Community Choir, John Lennon, Yoko Ono",38922,,21
+Rosa Walton,Hallie Coggins,35380,,59
+Anitta,"Becky G, Tini",35304,,92
+Ryan Lewis,"Macklemore, Ray Dalton",34612,,75
+Stars Music Chile,"NICKI NICOLE, Duki, Standly, Cris Mj",34564,,65
+Amitabha Bhattacharya,"Sachin-Jigar, Arijit Singh",33546,,39
+Tyler Cole,"THE ANXIETY, Willow",32772,,58
+Tanna Leone,Kendrick Lamar,32137,,48
+PR1ISVX,Kanii,31775,,58
+Band Aid,,31674,,40
+L.V.,Coolio,31364,,70
+Nico Valdi,"Migrantes, LiL CaKe",31121,,59
+Treyce,,28861,,36
+BYOR,Imanbek,28519,,66
+Kyla,"WizKid, Drake",25169,,71
+Jessica Darrow,,24701,,55
+Abhijay Sharma,Riar Saab,24479,,54
+DJ 900,Mc Pedrinho,23838,,58
+Os Gemeos da Putaria,MC Xenon,23245,,54
+Bianca,"DJ Biel do Furduncinho, L7nnon",19583,,15
+Moliy,"Kali Uchis, Amaarae",19469,,58
+Dina Rae,Eminem,18790,,65
+Mainstreet,Chefin,17814,,75
+Roisee,"A$AP Rocky, Metro Boomin",17134,,60
+Sam Dew,"Kendrick Lamar, Baby Keem",17129,,50
+Dazy,Nicky Youre,16947,,58
+Mufasa & Hypeman,"Dopamine, Riton, Nightcrawlers",16461,,61
+Prod Malax,"Bvga Beatz, Veigh, Supernova Ent",15520,,57
+DJ Biel do Furduncinho,"Bianca, L7nnon",14883,,56
+The Fontane Sisters,"Perry Como, Mitchell Ayres & His Orchestra",14533,,44
+Taylour Paige,Kendrick Lamar,13767,,47
+Amanda Reifer,"Kendrick Lamar, Blxst",12733,,58
+Miggy Dela Rosa,James Hype,11185,,64
+Mc Vitin Da Igrejinha,"DJ Win, MC Tairon",11043,,50
+Diane Guerrero,"Carolina Gaitan, Stephanie Beatriz, Rhenzy Feliz, Mauro Castillo, Adassa, Encanto - Cast",11031,,59
+MC MENOR SG,"DJ Escobar, MC MENOR HR",10290,,47
+Adassa,"Carolina Gaitan, Diane Guerrero, Stephanie Beatriz, Rhenzy Feliz, Mauro Castillo, Encanto - Cast",8288,,58
+ARIZONATEARS,"sped up nightcore, Lil Uzi Vert",8129,,66
+La Kelly,Cartel De Santa,7966,,58
+Toian,"Metro Boomin, Beam, Don Toliver, WizKid",5476,,50
+Hallie Coggins,Rosa Walton,4599,,59
+AX'EL,"Ckay, Dj Yo!",3924,,55
+Styrx,"utku INC, Thezth",2737,,2
+Olga Merediz,"Encanto - Cast, Stephanie Beatriz",2737,,54
+Rhenzy Feliz,"Carolina Gaitan, Diane Guerrero, Stephanie Beatriz, Mauro Castillo, Adassa, Encanto - Cast",2493,,57
+MÃ¯Â¿Â½Ã¯Â¿Â½ne,,2261,,100
+Ayparia,unxbected,1945,,55
+Mitchell Ayres & His Orchestra,"Perry Como, The Fontane Sisters",998,,49
+Ugly Dray,Tesla Jnr,833,,10
+B. Swanson Quartet,Frank Sinatra,794,,40
+John Scott Trotter & His Orchestra,"Ken Darby Singers, Bing Crosby",651,,31
+Ken Darby Singers,"John Scott Trotter & His Orchestra, Bing Crosby",587,,27
+Huilen Toledo,Juan Cruz Toledo,478,,
+The Harlem Community Choir,"John Lennon, Yoko Ono, The Plastic Ono Band",463,,20
+Chris Molitor,,439,,3
+DJ Escobar,"MC MENOR SG, MC MENOR HR",156,,0
+Intense,"AP Dhillon, Gurinder Gill",83,,26
+Tesla Jnr,Ugly Dray,60,,1
+utku INC,"Thezth, Styrx",33,,0
+unxbected,Ayparia,28,,12
+Juan Cruz Toledo,Huilen Toledo,27,,0
+GODZZ__-,Zakaria,9,,0
+DJ Win,"Mc Vitin Da Igrejinha, MC Tairon",2,,0
